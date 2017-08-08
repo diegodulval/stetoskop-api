@@ -13,7 +13,8 @@
     "__COVERAGE__" : false
   },
   "rules": {
-    "max-len" : [2, 120, 2]
+    "max-len" : [2, 120, 2],
+    "no-param-reassign": [2, { "props": false }]
   }
 }
 
