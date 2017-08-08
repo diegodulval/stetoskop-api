@@ -27,7 +27,7 @@ const connectAssets = require('connect-assets');
  */
 const homeController = require('./controllers/home');
 const apiController = require('./controllers/api');
-
+const userController = require('./controllers/user');
 /**
  * API keys .
  */
@@ -84,11 +84,6 @@ app.use(session({
 }));
 
 app.use(flash());
-app.use(lusca({
-  csrf: { angular: true },
-  xframe: 'SAMEORIGIN',
-  xssProtection: true,
-}));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.gaCode = secrets.googleAnalyticsCode;
@@ -110,7 +105,7 @@ app.get('/', homeController.index);
  * API routes.
  */
 app.get('/api/teste', apiController.getApiTeste);
-
+app.post('/api/user', userController.postUser);
 /**
  * Error Handler.
  */
