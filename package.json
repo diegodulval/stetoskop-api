@@ -1,0 +1,73 @@
+{
+  "name": "doctors-prescription",
+  "version": "1.0.0",
+  "description": "App for managed Doctor's prescription",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diegodulval/doctors-prescription.git"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint *.js",
+    "prepush": "npm run lint",
+    "start": "node app.js",
+    "test": "NODE_ENV=test mocha",
+    "test-ci": "NODE_ENV=test-travis mocha --reporter spec",
+    "test-debug": "NODE_ENV=test node_modules/.bin/mocha --debug --debug-brk"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "connect-assets": "^5.4.0",
+    "connect-pg-simple": "^4.2.0",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "ejs-mate": "^2.3.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.4",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.5",
+    "express-validator": "^3.2.1",
+    "less": "^2.7.2",
+    "lodash": "^4.17.4",
+    "lusca": "^1.4.1",
+    "method-override": "^2.3.9",
+    "morgan": "^1.8.2",
+    "multer": "^1.3.0",
+    "neo-async": "^2.3.0",
+    "sendgrid": "^5.2.0",
+    "sequelize": "^4.4.2",
+    "serve-favicon": "^2.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "expect.js": "^0.3.1",
+    "husky": "^0.14.3",
+    "mocha": "^2.4.5",
+    "supertest": "^3.0.0"
+  },
+  "license": "MIT",
+  "author": "Diego Dulval de Freitas (http://diegodulval.github.io/)",
+  "contributors": [
+    "Diego Dulval de Freitas",
+    "João Pedro de Paula "
+  ],
+  "bugs": "https://github.com/diegodulval/doctors-prescription/issues",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "homepage": "#",
+  "keywords": [
+    "express",
+    "node.js",
+    "postgresql",
+    "psql",
+    "relational database",
+    "OAuth",
+    "security",
+    "bcrypt"
+  ]
+}

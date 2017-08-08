@@ -1,0 +1,19 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser"  : true,
+    "commonjs" : true,
+    "node"     : true,
+    "es6"      : true
+  },
+  "globals": {
+    "__DEV__"      : false,
+    "__TEST__"     : false,
+    "__PROD__"     : false,
+    "__COVERAGE__" : false
+  },
+  "rules": {
+    "max-len" : [2, 120, 2]
+  }
+}
+
