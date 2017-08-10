@@ -9,6 +9,7 @@
   },
   "bugs": "https://github.com/diegodulval/doctors-prescription/issues",
   "scripts": {
+    "lint": "./node_modules/.bin/tslint server/*.ts -t verbose",
     "start": "./node_modules/.bin/ts-node ./server/server.ts",
     "builded": "node ./build/server.js",
     "prepush": "npm run lint"
@@ -20,7 +21,8 @@
     "@types/sequelize": "^4.0.68",
     "husky": "^0.14.3",
     "sequelize": "^4.4.2",
-    "ts-node": "^3.3.0"
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -28,7 +30,8 @@
     "http": "0.0.0",
     "morgan": "^1.8.2",
     "pg": "^7.1.0",
-    "sequelize-cli": "^2.8.0"
+    "sequelize-cli": "^2.8.0",
+    "tslint": "^5.6.0"
   },
   "license": "MIT",
   "author": "Diego Dulval de Freitas (http://diegodulval.github.io/)",
