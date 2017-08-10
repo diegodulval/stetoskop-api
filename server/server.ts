@@ -1,5 +1,11 @@
 import * as http from 'http';
+import Api from './api/api';
+import { errorHandlerApi } from './api/errorHandlerApi';
 
-const server = http.createServer();
+const config = require('./config/env/config')();
 
-server.listen(3000, () => console.log('Server rodando na porta 3000')); // tslint:disable-line
+const server = http.createServer(Api);
+
+Api.use(errorHandlerApi);
+
+server.listen(config.serverPort, () => console.log(`Server rodando na porta ${config.serverPort}`)); // tslint:disable-line
