@@ -2,49 +2,43 @@
   "name": "doctors-prescription",
   "version": "1.0.0",
   "description": "App for managed Doctor's prescription",
-  "main": "./src/bin/www.js",
-  "homepage": "#",
-  "scripts": {
-    "lint": "./node_modules/.bin/eslint src/*.js",
-    "prepush": "npm run lint"
-  },
+  "main": "src/loader.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/diegodulval/doctors-prescription.git"
   },
-  "bugs": "https://github.com/diegodulval/doctors-prescription/issues",
-  "engines": {
-    "node": ">=0.8.0"
+  "scripts": {
+    "start": "./node_modules/.bin/ts-node .server/server.ts",
+    "lint": "./node_modules/.bin/eslint src/*.js",
+    "prepush": "npm run lint"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "husky": "^0.14.3",
+    "ts-node": "^3.3.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "http": "0.0.0",
+    "morgan": "^1.8.2",
+    "pg": "^7.1.0"
   },
   "license": "MIT",
   "author": "Diego Dulval de Freitas (http://diegodulval.github.io/)",
-  "contributors": [
-    "Diego Dulval de Freitas",
-    "João Pedro de Paula "
-  ],
+  "bugs": "https://github.com/diegodulval/doctors-prescription/issues",
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.10.0"
+  },
+  "homepage": "#",
   "keywords": [
     "express",
     "node.js",
     "postgresql",
     "psql",
     "relational database"
-  ],
-  "dependencies": {
-    "bluebird": "3.5",
-    "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
-    "debug": "^3.0.0",
-    "express": "^4.15.3",
-    "morgan": "^1.8.2",
-    "pg-monitor": "^0.8.2",
-    "pg-promise": "^6.3.6",
-    "pug": "^2.0.0-rc.3",
-    "serve-favicon": "^2.4.3"
-  },
-  "devDependencies": {
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0",
-    "husky": "^0.14.3"
-  }
+  ]
 }
