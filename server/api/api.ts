@@ -15,7 +15,7 @@ class Api {
     this.middleware();
   }
 
-  private middleware(): void {
+  public middleware(): void {
     this.express.use(morgan('dev'));
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(bodyParser.json());
@@ -23,7 +23,7 @@ class Api {
     this.router(this.express);
   }
 
-  private router(app: Application): void {
+  public router(app: Application): void {
     new Routes(app); //tslint:disable-line
   }
 
