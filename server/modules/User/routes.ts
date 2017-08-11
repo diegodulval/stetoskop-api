@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserController from './controller'
+import UserController from './controller';
 
 let UserCtrl;
 
@@ -15,10 +15,10 @@ class UserRoutes {
     return UserCtrl.getById(req, res);
   }
   public create(req: Request, res: Response) {
-    return UserCtrl.getCreateUser(req, res);
+    return UserCtrl.createUser(req, res);
   }
   public update(req: Request, res: Response) {
-    return UserCtrl.update(req, res);
+    return UserCtrl.updateUser(req, res);
   }
   public destroy(req: Request, res: Response) {
     return UserCtrl.deleteUser(req, res);
