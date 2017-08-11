@@ -1,38 +1,52 @@
+import * as HTTPStatus from 'http-status';
 import { app, expect, request } from './config/helpers';
 
 describe('Testes de Integração', () => {
 
-  describe('GET /', () => {
-    it('Deve retornar a mensagem Coooeh rapaziada!', (done) => {
-      request(app)
-        .get('/')
-        .end((error, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.text).to.be.eql('Coooeh rapaziada!');
-          done(error);
-        });
-    });
+  'use strict';
+  const config = require('../../server/config/env/config')();
+  const model = require('../../server/models');
+
+  let id;
+  const userTest = {
+    id: 100,
+    name: 'Usuário Teste',
+    email: 'teste@emai.com',
+    password: 'teste',
+  };
+
+  beforeEach((done) => {
+    model.User.destroy({
+      where: {},
+    })
+      .then(() => {
+        return model.User.create(userDefault);
+      })
+      .then((user) => {
+        model.User.create(userTest)
+          .then(() => {
+            done();
+          });
+      });
   });
 
-  describe('GET /ola/:nome', () => {
-    it('Deve retornar a mensagem Salve, Galo-Cego!', (done) => {
-      const nome = 'Galo-Cego'
-      request(app)
-        .get(`/ola/${nome}`)
-        .end((error, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.text).to.be.eql('Salve, Galo-Cego!');
-          done(error);
-        });
-    });
-  });
+  const userDefault = {
+    id: 1,
+    name: 'Default Teste',
+    email: 'default@emai.com',
+    password: 'default',
+  };
 
   describe('GET /api/users/all', () => {
-    it('Deve retornar um Json com todos os Usúarios', (done) => {
+    it('Deve retornar um Array com todos os Usúarios', (done) => {
       request(app)
-        .get('api/users/all')
+        .get('/api/users/all')
         .end((error, res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(HTTPStatus.OK);
+          expect(res.body.payload).to.be.an('array');
+          expect(res.body.payload[0].name).to.be.equal(userDefault.name);
+          expect(res.body.payload[0].email).to.be.equal(userDefault.email);
+          done(error);
         });
     });
   });
@@ -40,47 +54,63 @@ describe('Testes de Integração', () => {
   describe('GET /api/users/:id', () => {
     it('Deve retornar um Json com apenas um Usúario', (done) => {
       request(app)
-        .get(`api/users/${1}`)
+        .get(`/api/users/${userDefault.id}`)
         .end((error, res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(HTTPStatus.OK);
+          expect(res.body.payload.id).to.be.equal(userDefault.id);
+          expect(res.body.payload).to.have.all.keys([
+            'id', 'name', 'email', 'password'
+          ]);
+          id = res.body.payload.id;
+          done(error);
         });
     });
   });
 
-  describe('POST /api/users/new', () => {
+  describe('POST /api/users/create', () => {
     it('Deve criar um novo Usúario', (done) => {
       const user = {
-        nome: 'Teste',
+        id: 2,
+        name: 'Usuario Teste',
+        email: 'usuarioteste@email.com',
+        password: 'novouser',
       };
+
       request(app)
-        .post('api/users/new')
+        .post('/api/users/create')
         .send(user)
         .end((error, res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(HTTPStatus.OK);
+          expect(res.body.payload.id).to.be.equals(user.id);
+          expect(res.body.payload.name).to.be.equals(user.name);
+          expect(res.body.payload.email).to.be.equals(user.email);
+          done(error);
         });
     });
   });
 
-  describe('PUT /api/users/:id/edit', () => {
+  describe('PUT /api/users/:id/update', () => {
     it('Deve atualizar um Usúario', (done) => {
       const user = {
         nome: 'TesteUpdate',
       };
       request(app)
-        .put(`api/users/${1}/edit`)
+        .put(`/api/users/${id}/update`)
         .send(user)
         .end((error, res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(HTTPStatus.OK);
+          done(error);
         });
     });
   });
 
-  describe('DELETE /api/users/:id', () => {
+  describe('DELETE /api/users/:id/destroy', () => {
     it('Deve deletar um Usúario', (done) => {
       request(app)
-        .delete(`api/users/${1}`)
+        .delete(`/api/users/${1}/destroy`)
         .end((error, res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(HTTPStatus.OK);
+          done(error);
         });
     });
   });
