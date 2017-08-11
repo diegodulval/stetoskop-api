@@ -1,7 +1,7 @@
 /* tslint:disable */
 module.exports = {
   env: 'development',
-  db: 'ts-api',
+  db: 'ts-api-test',
   dialect: 'postgres',
   username: 'postgres',
   password: 'postgres',

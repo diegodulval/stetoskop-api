@@ -17,10 +17,12 @@
     "prepush": "npm run lint"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.8",
     "@types/body-parser": "^1.16.4",
     "@types/chai": "^4.0.2",
     "@types/express": "^4.0.36",
     "@types/http-status": "^0.2.29",
+    "@types/node": "^6.0.52",
     "@types/mocha": "^2.2.41",
     "@types/morgan": "^1.7.32",
     "@types/sequelize": "^4.0.68",
@@ -29,23 +31,25 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-typescript": "^3.2.1",
+    "http": "0.0.0",
+    "http-server": "^0.9.0",
     "husky": "^0.14.3",
     "mocha": "^3.5.0",
-    "sequelize": "^4.4.3",
     "supertest": "^3.0.0",
     "testdouble": "^3.2.4",
     "ts-node": "^3.3.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.5.0-dev.20170801"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "g": "^2.0.1",
     "http": "0.0.0",
     "http-status": "^1.0.1",
     "morgan": "^1.8.2",
     "pg": "^7.1.0",
-    "sequelize-cli": "^2.8.0",
+    "sequelize": "^3.30.4",
+    "sequelize-cli": "^2.7.0",
     "tslint": "^5.6.0"
   },
   "license": "MIT",
