@@ -10,9 +10,8 @@
   "bugs": "https://github.com/diegodulval/doctors-prescription/issues",
   "scripts": {
     "lint": "./node_modules/.bin/tslint server/*.ts -t verbose",
-    "build": "./node_modules/.bin/tsc.cmd -p tsconfig.json ",
     "start": "cross-env NODE_ENV=development ./node_modules/.bin/ts-node ./server/server.ts",
-    "builded": "npm run build && cross-env NODE_ENV=development node ./dist/server.js",
+    "builded": "cross-env NODE_ENV=development node ./dist/server/server.js",
     "unit-test": "cross-env NODE_ENV=test mocha --opts mocha.opts ./dist/tests/unit/unit.test.js",
     "integration-test": "cross-env NODE_ENV=test mocha --opts mocha.opts ./dist/tests/integration/integration.test.js",
     "prepush": "npm run lint"
@@ -31,7 +30,7 @@
     "gulp-typescript": "^3.2.1",
     "husky": "^0.14.3",
     "mocha": "^3.5.0",
-    "sequelize": "^4.4.2",
+    "sequelize": "^4.4.3",
     "supertest": "^3.0.0",
     "testdouble": "^3.2.4",
     "ts-node": "^3.3.0",
@@ -40,6 +39,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "g": "^2.0.1",
     "http": "0.0.0",
     "morgan": "^1.8.2",
     "pg": "^7.1.0",
