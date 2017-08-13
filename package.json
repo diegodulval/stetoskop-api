@@ -22,9 +22,9 @@
     "@types/chai": "^4.0.2",
     "@types/express": "^4.0.36",
     "@types/http-status": "^0.2.29",
-    "@types/node": "^6.0.52",
     "@types/mocha": "^2.2.41",
     "@types/morgan": "^1.7.32",
+    "@types/node": "^6.0.52",
     "@types/sequelize": "^4.0.68",
     "@types/supertest": "^2.0.2",
     "chai": "^4.1.1",
@@ -38,7 +38,8 @@
     "supertest": "^3.0.0",
     "testdouble": "^3.2.4",
     "ts-node": "^3.3.0",
-    "typescript": "^2.5.0-dev.20170801"
+    "tslint": "^5.6.0",
+    "typescript": "^2.5.0-dev.20170808"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -48,9 +49,8 @@
     "http-status": "^1.0.1",
     "morgan": "^1.8.2",
     "pg": "^7.1.0",
-    "sequelize": "^3.30.4",
-    "sequelize-cli": "^2.7.0",
-    "tslint": "^5.6.0"
+    "sequelize": "^4.4.5",
+    "sequelize-cli": "^2.8.0"
   },
   "license": "MIT",
   "author": "Diego Dulval de Freitas (http://diegodulval.github.io/)",
@@ -60,10 +60,10 @@
   },
   "homepage": "#",
   "keywords": [
-    "express",
-    "node.js",
-    "postgresql",
-    "psql",
-    "relational database"
+    "Express",
+    "Node.js",
+    "Postgresql",
+    "Psql",
+    "Relational database"
   ]
 }
