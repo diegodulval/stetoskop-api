@@ -2,8 +2,9 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { Application } from 'express';
 import * as morgan from 'morgan';
-import { errorHandlerApi } from './errorHandlerApi';
 
+import Auth from '../auth';
+import Handlers from './responses/handlers';
 import Routes from './routes/routes';
 
 class Api {
@@ -19,12 +20,13 @@ class Api {
     this.express.use(morgan('dev'));
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(bodyParser.json());
-    this.express.use(errorHandlerApi);
-    this.router(this.express);
+    this.express.use(Handlers.errorHandlerApi);
+    this.express.use(Auth.config().initialize());
+    this.router(this.express, Auth);
   }
 
-  public router(app: Application): void {
-    new Routes(app); //tslint:disable-line
+  public router(app: Application, auth: any): void {
+    Routes.initRoutes(app, auth);
   }
 
 }

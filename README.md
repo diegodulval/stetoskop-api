@@ -1,4 +1,4 @@
-# Stetoskop-API
+# Stetoskop's API
 
 One Paragraph of project description goes here
 

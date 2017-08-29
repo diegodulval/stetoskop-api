@@ -1,7 +1,7 @@
 /* tslint:disable */
 module.exports = {
-  env: 'development',
-  db: 'stetoskop',
+  env: 'stetoskop',
+  db: 'moment',
   dialect: 'postgres',
   username: 'postgres',
   password: 'postgres',
