@@ -22,6 +22,7 @@ class Handlers {
     if (isMatch) {
       const payload = { id: data.id };
       res.json({
+        user: payload,
         token: jwt.encode(payload, config.secret)
       });
     } else {

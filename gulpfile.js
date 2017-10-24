@@ -15,6 +15,11 @@ gulp.task("copy-opts", ['clean', 'compile'], function () {
     .pipe(gulp.dest('dist/tests/integration/config'))
 });
 
+gulp.task("copy-resources", ['clean', 'compile'], function () {
+  return gulp.src('tests/resources/cat.png')
+    .pipe(gulp.dest('dist/tests/resources'))
+});
+
 gulp.task("clean", function () {
   return gulp.src('dist')
     .pipe(clean());
@@ -25,7 +30,7 @@ gulp.task("copy-migration-config", ['clean', 'compile', 'copy-opts'], function (
     .pipe(gulp.dest('dist/server/config'))
 });
 
-gulp.task("build", ['clean', 'compile', 'copy-opts', 'copy-migration-config'], function () {
+gulp.task("build", ['clean', 'compile', 'copy-opts', 'copy-migration-config', 'copy-resources'], function () {
   return gulp.src('server/migrations/*')
     .pipe(gulp.dest('dist/server/migrations'))
 });

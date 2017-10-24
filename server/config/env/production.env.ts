@@ -1,13 +1,16 @@
 /* tslint:disable */
+import * as path from 'path';
+
 module.exports = {
-  env: 'stetoskop',
-  db: 'moment',
+  env: 'production',
+  db: process.env.DATABASE_NAME,
   dialect: 'postgres',
-  username: 'postgres',
-  password: 'postgres',
+  username: 'dulval-182',
+  password: process.env.DATABASE_PASS,
   host: 'localhost',
-  serverPort: 3001,
+  serverPort: process.env.PORT,
   pgPort: 5432,
-  dbURL: 'postgres://postgres:postgres@localhost:5432/stetoskop',
+  dbURL: process.env.DATABASE_URL,
   secret: 'S3cr3t',
+  uploadPath: path.join(__dirname, '..', '..', '..', 'upload'),
 };

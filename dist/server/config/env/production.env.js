@@ -3,15 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* tslint:disable */
 var path = require("path");
 module.exports = {
-    env: 'development',
-    db: 'moment',
+    env: 'production',
+    db: process.env.DATABASE_NAME,
     dialect: 'postgres',
-    username: 'postgres',
-    password: 'postgres',
+    username: 'ppturztezlnzco',
+    password: process.env.DATABASE_PASS,
     host: 'localhost',
-    serverPort: 3001,
+    serverPort: process.env.PORT,
     pgPort: 5432,
-    dbURL: 'postgres://postgres:postgres@localhost:5432/moment',
+    dbURL: process.env.DATABASE_URL,
     secret: 'S3cr3t',
     uploadPath: path.join(__dirname, '..', '..', '..', 'upload'),
 };

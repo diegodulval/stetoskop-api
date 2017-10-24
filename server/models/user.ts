@@ -1,6 +1,5 @@
 import * as bcrypt from 'bcryptjs';
 
-import Image from './image';
 
 export default function (sequelize, DataTypes) {
 
@@ -33,10 +32,9 @@ export default function (sequelize, DataTypes) {
     },
   });
 
-  User.associate = (models) => {
-    User.hasMany(models.Image)
+/*   User.associate = (models) => {
     User.hasOne(models.Doctor)
-  };
+  }; */
 
   User.beforeCreate((user) => {
     return hashPassword(user);

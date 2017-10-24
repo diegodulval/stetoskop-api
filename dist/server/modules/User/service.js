@@ -41,4 +41,4 @@ var User = (function () {
     };
     return User;
 }());
-exports.default = User;
+exports.default = new User();

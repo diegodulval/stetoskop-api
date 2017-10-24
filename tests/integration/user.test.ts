@@ -10,7 +10,6 @@ describe('Testes de Integração', () => {
   'use strict';
   const config = require('../../server/config/env/config')();
 
-  let id;
   let token;
 
   const userTest = {
@@ -31,9 +30,7 @@ describe('Testes de Integração', () => {
     model.User.destroy({
       where: {},
     })
-      .then(() => {
-        return model.User.create(userDefault);
-      })
+      .then(() => model.User.create(userDefault))
       .then((user) => {
         model.User.create(userTest)
           .then(() => {
@@ -41,38 +38,6 @@ describe('Testes de Integração', () => {
             done();
           });
       });
-  });
-
-  describe('POST /token', () => {
-    it('Deve receber um JWT', (done) => {
-      const credentials = {
-        email: userDefault.email,
-        password: userDefault.password,
-      };
-      request(app)
-        .post('/token')
-        .send(credentials)
-        .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
-          expect(res.body.token).to.equal(`${token}`);
-          done(error);
-        });
-    });
-
-    it('Não deve gerar Token', (done) => {
-      const credentials = {
-        email: 'dito@email.com',
-        password: 'galocego',
-      };
-      request(app)
-        .post('/token')
-        .send(credentials)
-        .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.UNAUTHORIZED);
-          expect(res.body).to.empty; // tslint:disable-line
-          done(error);
-        });
-    });
   });
 
   describe('GET /api/users/all', () => {
@@ -151,7 +116,7 @@ describe('Testes de Integração', () => {
   });
 
   describe('DELETE /api/users/:id/destroy', () => {
-    it('Should delete an User', (done) => {
+    it('Deve deletar um Usuário', (done) => {
       request(app)
         .del(`/api/users/${userTest.id}/destroy`)
         .set('Content-Type', 'application/json')
