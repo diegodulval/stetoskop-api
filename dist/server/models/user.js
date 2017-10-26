@@ -31,7 +31,8 @@ function default_1(sequelize, DataTypes) {
         },
     });
     User.associate = function (models) {
-        User.hasOne(models.Doctor);
+        console.log(models);
+        //User.hasOne(models.Doctor)
     };
     User.beforeCreate(function (user) {
         return hashPassword(user);

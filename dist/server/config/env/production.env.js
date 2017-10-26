@@ -6,7 +6,7 @@ module.exports = {
     env: 'production',
     db: process.env.DATABASE_NAME,
     dialect: 'postgres',
-    username: 'ppturztezlnzco',
+    username: 'dulval-182',
     password: process.env.DATABASE_PASS,
     host: 'localhost',
     serverPort: process.env.PORT,

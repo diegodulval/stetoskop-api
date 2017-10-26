@@ -1,11 +1,13 @@
 import User from "./user";
 
 export default function (sequelize, DataTypes) {
-  const Doctor = sequelize.define("Doctor", {
+
+  const Doctor = sequelize.define('Doctor', {
     id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      field: 'user_id',
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      primaryKey: true
     },
     profession: {
       type: DataTypes.STRING,
@@ -38,14 +40,7 @@ export default function (sequelize, DataTypes) {
     },
   });
 
-  Doctor.associate = (models) => {
-    Doctor.belongsTo(models.User, {
-      onDelete: "CASCADE",
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
+  Doctor.associate = (models) => Doctor.belongsTo(models.User, { foreignKey: 'id', targetKey: 'id' });
 
   return Doctor;
 }

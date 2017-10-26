@@ -32,9 +32,9 @@ export default function (sequelize, DataTypes) {
     },
   });
 
-/*   User.associate = (models) => {
+  User.associate = (models) => {
     User.hasOne(models.Doctor)
-  }; */
+  }; 
 
   User.beforeCreate((user) => {
     return hashPassword(user);
