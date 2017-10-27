@@ -3,11 +3,13 @@ import User from "./user";
 export default function (sequelize, DataTypes) {
 
   const Doctor = sequelize.define('Doctor', {
-    id: {
-      field: 'user_id',
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      primaryKey: true
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: 'id',
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE        
+      }
     },
     profession: {
       type: DataTypes.STRING,
@@ -39,8 +41,6 @@ export default function (sequelize, DataTypes) {
       }
     },
   });
-
-  Doctor.associate = (models) => Doctor.belongsTo(models.User, { foreignKey: 'id', targetKey: 'id' });
 
   return Doctor;
 }
