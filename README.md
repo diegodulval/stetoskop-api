@@ -2,31 +2,17 @@
 
 Work in process
 
-## Getting Started
-
-* npm install
-* gulp
-* npm run builded
-* localhost:3000
-
 ### Prerequisites
 
-* node 6+
-* npm
-* gulp
-
-## Running the tests
-
-npm run unit-test
-npm run integration-test
+* JAVA 8
+* PostgreSQL
 
 ## Built With
 
-* Node
-* TypeScript 
-* Sequelize
-* Passaport
-* Gulp
+* JAVA 8
+* Spring Boot 
+* Spring Security (JWT)
+* Hibernate JPA
 
 ## Contributing
 
