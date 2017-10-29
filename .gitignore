@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+src/main/resources
+
 # IDE
 .vscode
 
+/target/
