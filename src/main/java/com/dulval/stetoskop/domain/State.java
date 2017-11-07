@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
+@Data
 @Entity
 public class State implements Serializable {
 
@@ -33,29 +35,4 @@ public class State implements Serializable {
 
     public State() {
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<City> getCitys() {
-        return citys;
-    }
-
-    public void setCitys(List<City> citys) {
-        this.citys = citys;
-    }
-
 }
