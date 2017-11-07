@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.dulval.stetoskop.domain.State;
 
 @Repository
-public interface EstadoRepository extends JpaRepository<State, Integer> {
+public interface StateRepository extends JpaRepository<State, Integer> {
 
 }
