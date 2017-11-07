@@ -12,8 +12,8 @@ import com.dulval.stetoskop.domain.City;
 import com.dulval.stetoskop.domain.State;
 import com.dulval.stetoskop.repositories.UserRepository;
 import com.dulval.stetoskop.repositories.CityRepository;
-import com.dulval.stetoskop.repositories.StateoRepository;
 import com.dulval.stetoskop.repositories.MedicamentRepository;
+import com.dulval.stetoskop.repositories.StateRepository;
 
 @Service
 public class DBService {
@@ -22,7 +22,7 @@ public class DBService {
 	private BCryptPasswordEncoder pe;
 	
 	@Autowired
-	private StateoRepository estadoRepository;
+	private StateRepository estadoRepository;
 	@Autowired
 	private CityRepository cidadeRepository;
 	@Autowired
