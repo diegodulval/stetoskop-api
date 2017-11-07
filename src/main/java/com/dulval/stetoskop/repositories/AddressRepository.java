@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.dulval.stetoskop.domain.Address;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Address, Integer> {
+public interface AddressRepository extends JpaRepository<Address, Integer> {
 
 }
