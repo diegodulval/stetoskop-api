@@ -1,7 +1,13 @@
 package com.dulval.stetoskop.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import lombok.Data;
 
+@Data
 @Entity
 public class Doctor extends User {
 
@@ -11,31 +17,6 @@ public class Doctor extends User {
     private String crm;
     private Integer account;
 
-    public Doctor() {
-    }
-
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
-    public String getCrm() {
-        return crm;
-    }
-
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public Integer getAccount() {
-        return account;
-    }
-
-    public void setAccount(Integer account) {
-        this.account = account;
-    }
-
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Pacient> pacients = new ArrayList<>();
 }
