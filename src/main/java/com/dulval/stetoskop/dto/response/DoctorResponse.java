@@ -5,17 +5,16 @@
  */
 package com.dulval.stetoskop.dto.response;
 
-import com.dulval.stetoskop.domain.Address;
 import com.dulval.stetoskop.domain.Doctor;
-import com.dulval.stetoskop.domain.Institution;
-import com.dulval.stetoskop.domain.User;
 import com.dulval.stetoskop.domain.enums.Account;
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  *
  * @author diego-dulval
  */
+@Data
 public class DoctorResponse extends UserResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,37 +33,4 @@ public class DoctorResponse extends UserResponse implements Serializable {
 
     public DoctorResponse() {
     }
-
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
-    public String getCrm() {
-        return crm;
-    }
-
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
 }

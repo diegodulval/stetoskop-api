@@ -7,22 +7,25 @@ package com.dulval.stetoskop.dto.form;
 
 import com.dulval.stetoskop.domain.Institution;
 import java.io.Serializable;
+import lombok.Data;
 
+@Data
 public class InstitutionForm extends UserForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public InstitutionForm(Institution obj) {
-        super(obj.getId(), obj.getName(), obj.getEmail(), obj.getPassword(), obj.getPhone());
+        super(obj.getId(), obj.getName(), obj.getEmail(), obj.getPassword(), obj.getAddress(), obj.getPhone());
     }
-    
-     public Institution build() {
-       
+
+    public Institution build() {
+
         return new Institution(
                 null,
                 this.getName(),
                 this.getEmail(),
                 this.getPassword(),
+                this.getAddress(),
                 this.getPhone()
         );
     }

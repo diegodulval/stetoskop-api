@@ -5,10 +5,13 @@
  */
 package com.dulval.stetoskop.dto.form;
 
+import com.dulval.stetoskop.domain.Address;
 import java.io.Serializable;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Data
 public class UserForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,55 +33,17 @@ public class UserForm implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String phone;
 
-    public UserForm(Integer id, String name, String email, String password, String phone) {
+    private Address address;
+
+    public UserForm(Integer id, String name, String email, String password, Address address, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.address = address;
     }
 
     public UserForm() {
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
 }

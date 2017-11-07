@@ -10,6 +10,7 @@ import com.dulval.stetoskop.domain.User;
 import java.io.Serializable;
 import lombok.Data;
 
+@Data
 public class UserResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,7 +28,7 @@ public class UserResponse implements Serializable {
         this.phone = phone;
         this.address = address;
     }
-    
+
     public UserResponse(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -38,46 +39,4 @@ public class UserResponse implements Serializable {
 
     public UserResponse() {
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    
 }
