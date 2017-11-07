@@ -36,10 +36,18 @@ public class MedicamentService {
         obj = repo.save(obj);
 
         for (InterationMedicament interation : obj.getInterations()) {
-            interation.setMedicamentInteration(repo.findOne(interation.getMedicament().getId()));
-            interation.setMedicament(obj);
+
+            Medicament med = repo.findOne(interation.getMedicament());
+            if (med == null) {
+                throw new ObjectNotFoundException("Não é possivél associar o Medicamento com Id = " + interation.getMedicament() + " , objeto não encontrado!  ");
+            }
+
+            interation.setMedicamentInteration(obj.getId());
+            interation.setMedicament(med.getId());
+
         }
         iterationRepository.save(obj.getInterations());
+
         return obj;
     }
 

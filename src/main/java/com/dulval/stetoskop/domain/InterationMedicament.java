@@ -6,6 +6,7 @@
 package com.dulval.stetoskop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -28,19 +29,19 @@ public class InterationMedicament implements Serializable {
     private String description;
 
     @JsonIgnore
-    public Medicament getMedicamentInteration() {
+    public Integer getMedicamentInteration() {
         return id.getMedicamentInteration();
     }
 
-    public void setMedicamentInteration(Medicament med) {
+    public void setMedicamentInteration(Integer med) {
         id.setMedicamentInteration(med);
     }
 
-    public Medicament getMedicament() {
+    public Integer getMedicament() {
         return id.getMedicament();
     }
 
-    public void setMedicament(Medicament med) {
+    public void setMedicament(Integer med) {
         id.setMedicament(med);
     }
 }
