@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.dulval.stetoskop.domain.City;
 import com.dulval.stetoskop.domain.State;
-import com.dulval.stetoskop.repositories.CidadeRepository;
-import com.dulval.stetoskop.repositories.EnderecoRepository;
-import com.dulval.stetoskop.repositories.EstadoRepository;
 import com.dulval.stetoskop.repositories.UserRepository;
+import com.dulval.stetoskop.repositories.CityRepository;
+import com.dulval.stetoskop.repositories.StateoRepository;
+import com.dulval.stetoskop.repositories.MedicamentRepository;
 
 @Service
 public class DBService {
@@ -22,13 +22,13 @@ public class DBService {
 	private BCryptPasswordEncoder pe;
 	
 	@Autowired
-	private EstadoRepository estadoRepository;
+	private StateoRepository estadoRepository;
 	@Autowired
-	private CidadeRepository cidadeRepository;
+	private CityRepository cidadeRepository;
 	@Autowired
 	private UserRepository clienteRepository;
 	@Autowired
-	private EnderecoRepository enderecoRepository;
+	private MedicamentRepository enderecoRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
