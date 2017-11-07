@@ -37,9 +37,15 @@ public class MedicamentService {
 
         for (InterationMedicament interation : obj.getInterations()) {
             interation.setMedicamentInteration(repo.findOne(interation.getMedicament().getId()));
-            interation.setMedicament(obj);
+
+            Medicament med = new Medicament();
+            med.setId(obj.getId());
+
+            interation.setMedicament(med);
+            
+            iterationRepository.save(interation);
         }
-        iterationRepository.save(obj.getInterations());
+      
         return obj;
     }
 
