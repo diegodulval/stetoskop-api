@@ -49,6 +49,10 @@ public class Medicament implements Serializable {
     @CollectionTable(name = "COMERCIAL_NAME")
     private Set<String> comercialNames = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.prescription")
+    private Set<ItemPrescription> prescription = new HashSet<>();
+
     public Medicament(Integer id, String name) {
         this.id = id;
         this.name = name;

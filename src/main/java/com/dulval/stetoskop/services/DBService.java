@@ -12,16 +12,20 @@ import org.springframework.stereotype.Service;
 import com.dulval.stetoskop.domain.City;
 import com.dulval.stetoskop.domain.Doctor;
 import com.dulval.stetoskop.domain.InterationMedicament;
+import com.dulval.stetoskop.domain.ItemPrescription;
 import com.dulval.stetoskop.domain.Medicament;
 import com.dulval.stetoskop.domain.Pacient;
+import com.dulval.stetoskop.domain.Prescription;
 import com.dulval.stetoskop.domain.State;
 import com.dulval.stetoskop.domain.enums.Role;
 import com.dulval.stetoskop.repositories.AddressRepository;
 import com.dulval.stetoskop.repositories.CityRepository;
 import com.dulval.stetoskop.repositories.DoctorRepository;
 import com.dulval.stetoskop.repositories.InterationMedicamentRepository;
+import com.dulval.stetoskop.repositories.ItemPrescriptionRepository;
 import com.dulval.stetoskop.repositories.MedicamentRepository;
 import com.dulval.stetoskop.repositories.PacientRepository;
+import com.dulval.stetoskop.repositories.PrescriptionRepository;
 import com.dulval.stetoskop.repositories.StateRepository;
 import com.google.common.collect.Sets;
 import java.time.Instant;
@@ -53,6 +57,11 @@ public class DBService {
 
     @Autowired
     private InterationMedicamentRepository interationMedicamentRepository;
+
+    @Autowired
+    private PrescriptionRepository presRepository;
+    @Autowired
+    private ItemPrescriptionRepository itemRepository;
 
     public void instantiateTestDatabase() throws ParseException {
 
@@ -91,16 +100,6 @@ public class DBService {
 
         doctorRepository.save(doc);
 
-        Pacient pac = new Pacient();
-        pac.setAddress(add);
-        pac.setBirthdate(Date.from(Instant.now()));
-        pac.setDoctor(doc);
-        pac.setName("Gisele");
-        pac.setPhone("3445-2264");
-        pac.setProfession("Arquiteta");
-
-        pacRepository.save(pac);
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
         Medicament a = new Medicament(null, "A");
@@ -133,6 +132,32 @@ public class DBService {
 
         medicamentRepository.save(Arrays.asList(a, b, c, d));
         interationMedicamentRepository.save(Arrays.asList(im1, im2, im3, im4, im5));
+
+        Pacient pac = new Pacient();
+        pac.setAddress(add);
+        pac.setBirthdate(Date.from(Instant.now()));
+        pac.setDoctor(doc);
+        pac.setName("Gisele");
+        pac.setPhone("3445-2264");
+        pac.setProfession("Arquiteta");
+
+        pacRepository.save(pac);
+
+        Prescription pres = new Prescription();
+        pres.setDate(Date.from(Instant.now()));
+        pres.setPacient(pac);
+        pres.setDescription("Se presitirem os sintomas um medico deve ser consultado.");
+
+        ItemPrescription item = new ItemPrescription();
+        item.setDescription("Tomar de 8 em 8 horas");
+        item.setMedicament(a);
+        item.setQuantity(10);
+        item.setUnities(Sets.newHashSet("Comprimidos"));
+        item.setUseTypes(Sets.newHashSet("Oral"));
+        item.setPrescription(pres);
+
+        presRepository.save(pres);
+        itemRepository.save(item);
 
     }
 }
