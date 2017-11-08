@@ -5,9 +5,9 @@
  */
 package com.dulval.stetoskop.resources;
 
-import com.dulval.stetoskop.domain.Medicament;
+import com.dulval.stetoskop.domain.Pacient;
 import com.dulval.stetoskop.resources.utils.URL;
-import com.dulval.stetoskop.services.MedicamentService;
+import com.dulval.stetoskop.services.PacientService;
 import java.net.URI;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +29,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author Diego Dulval
  */
 @RestController
-@RequestMapping(value = "/medicaments")
-public class MedicamentResource {
+@RequestMapping(value = "/pacients")
+public class PacientResource {
 
     @Autowired
-    private MedicamentService service;
+    private PacientService service;
 
     @GetMapping("/{id}")
     public ResponseEntity find(@PathVariable Integer id) {
-        Medicament obj = service.readById(id);
+        Pacient obj = service.readById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity insert(@Valid @RequestBody Medicament obj) {
+    public ResponseEntity insert(@Valid @RequestBody Pacient obj) {
         obj = service.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -50,9 +50,9 @@ public class MedicamentResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@Valid @RequestBody Medicament obj, @PathVariable Integer id) {
+    public ResponseEntity update(@Valid @RequestBody Pacient obj, @PathVariable Integer id) {
         obj.setId(id);
-        obj = service.update(obj);
+        service.update(obj);
         return ResponseEntity.noContent().build();
     }
 
@@ -71,7 +71,7 @@ public class MedicamentResource {
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         String nameDecoded = URL.decodeParam(name);
-        Page<Medicament> list = service.read(nameDecoded, page, linesPerPage, orderBy, direction);
+        Page<Pacient> list = service.read(nameDecoded, page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(list);
     }
 }

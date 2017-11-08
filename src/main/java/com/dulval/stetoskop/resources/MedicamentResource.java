@@ -6,6 +6,8 @@
 package com.dulval.stetoskop.resources;
 
 import com.dulval.stetoskop.domain.Medicament;
+import com.dulval.stetoskop.dto.form.MedicamentForm;
+import com.dulval.stetoskop.dto.response.MedicamentResponse;
 import com.dulval.stetoskop.resources.utils.URL;
 import com.dulval.stetoskop.services.MedicamentService;
 import java.net.URI;
@@ -42,17 +44,17 @@ public class MedicamentResource {
     }
 
     @PostMapping
-    public ResponseEntity insert(@Valid @RequestBody Medicament obj) {
-        obj = service.create(obj);
+    public ResponseEntity insert(@Valid @RequestBody MedicamentForm obj) {
+        Medicament med = service.create(obj.build());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+                .path("/{id}").buildAndExpand(med.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@Valid @RequestBody Medicament obj, @PathVariable Integer id) {
+    public ResponseEntity update(@Valid @RequestBody MedicamentForm obj, @PathVariable Integer id) {
         obj.setId(id);
-        obj = service.update(obj);
+        service.update(obj.build());
         return ResponseEntity.noContent().build();
     }
 
@@ -72,6 +74,7 @@ public class MedicamentResource {
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         String nameDecoded = URL.decodeParam(name);
         Page<Medicament> list = service.read(nameDecoded, page, linesPerPage, orderBy, direction);
-        return ResponseEntity.ok().body(list);
+        Page<MedicamentResponse> listDto = list.map(MedicamentResponse::new);
+        return ResponseEntity.ok().body(listDto);
     }
 }
