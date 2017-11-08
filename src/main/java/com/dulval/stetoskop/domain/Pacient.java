@@ -38,8 +38,8 @@ public class Pacient implements Serializable {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date date;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date birthdate;
     private String phone;
 
     @JsonIgnore

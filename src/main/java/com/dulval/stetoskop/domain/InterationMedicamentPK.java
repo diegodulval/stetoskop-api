@@ -8,6 +8,7 @@ package com.dulval.stetoskop.domain;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -20,9 +21,12 @@ public class InterationMedicamentPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ManyToOne
     @JoinColumn(name = "medicament_id")
-    private Integer medicament;
+    private Medicament medicament;
 
+    @ManyToOne
     @JoinColumn(name = "medicament_interation_id")
-    private Integer medicamentInteration;
+    private Medicament medicamentInteration;
+
 }

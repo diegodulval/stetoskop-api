@@ -6,11 +6,8 @@
 package com.dulval.stetoskop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -37,11 +34,11 @@ public class Medicament implements Serializable {
 
     private String name;
 
-    @OneToMany(mappedBy = "id.medicamentInteration")
+    @OneToMany(mappedBy = "id.medicament")
     private Set<InterationMedicament> interations = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "id.medicament")
+    @OneToMany(mappedBy = "id.medicamentInteration")
     private Set<InterationMedicament> medicamentInteration = new HashSet<>();
 
     @ElementCollection
@@ -51,5 +48,21 @@ public class Medicament implements Serializable {
     @ElementCollection
     @CollectionTable(name = "COMERCIAL_NAME")
     private Set<String> comercialNames = new HashSet<>();
+
+    public Medicament(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Medicament() {
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
 
 }
