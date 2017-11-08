@@ -1,6 +1,7 @@
 package com.dulval.stetoskop.domain;
 
 import com.dulval.stetoskop.domain.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public abstract class User implements Serializable {
     private String name;
     @Column(unique = true)
     private String email;
-    //@JsonIgnore
+    @JsonIgnore
     private String password;
     @ManyToOne
     @JoinColumn(name = "address_id")

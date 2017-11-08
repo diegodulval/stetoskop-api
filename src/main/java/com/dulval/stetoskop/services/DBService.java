@@ -1,5 +1,6 @@
 package com.dulval.stetoskop.services;
 
+import com.dulval.stetoskop.domain.Address;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -9,14 +10,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dulval.stetoskop.domain.City;
+import com.dulval.stetoskop.domain.Doctor;
 import com.dulval.stetoskop.domain.InterationMedicament;
 import com.dulval.stetoskop.domain.Medicament;
+import com.dulval.stetoskop.domain.Pacient;
 import com.dulval.stetoskop.domain.State;
+import com.dulval.stetoskop.domain.enums.Role;
+import com.dulval.stetoskop.repositories.AddressRepository;
 import com.dulval.stetoskop.repositories.CityRepository;
+import com.dulval.stetoskop.repositories.DoctorRepository;
 import com.dulval.stetoskop.repositories.InterationMedicamentRepository;
 import com.dulval.stetoskop.repositories.MedicamentRepository;
+import com.dulval.stetoskop.repositories.PacientRepository;
 import com.dulval.stetoskop.repositories.StateRepository;
 import com.google.common.collect.Sets;
+import java.time.Instant;
+import java.util.Date;
 
 @Service
 public class DBService {
@@ -26,8 +35,18 @@ public class DBService {
 
     @Autowired
     private StateRepository estadoRepository;
+
+    @Autowired
+    private PacientRepository pacRepository;
+
     @Autowired
     private CityRepository cidadeRepository;
+
+    @Autowired
+    private AddressRepository addRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
 
     @Autowired
     private MedicamentRepository medicamentRepository;
@@ -49,6 +68,38 @@ public class DBService {
 
         estadoRepository.save(Arrays.asList(est1, est2));
         cidadeRepository.save(Arrays.asList(c1, c2, c3));
+
+        Address add = new Address();
+        add.setCep("37564000");
+        add.setCity(c3);
+        add.setNeighborhood("centro");
+        add.setNumber("56");
+        add.setStreet("Alameda");
+
+        addRepository.save(add);
+
+        Doctor doc = new Doctor();
+        doc.setAccount(1);
+        doc.setAddress(add);
+        doc.setCrm("123456");
+        doc.setEmail("diegodifreitas@gmail.com");
+        doc.setName("Diego");
+        doc.setPassword(pe.encode("123456"));
+        doc.setPhone("3445-2264");
+        doc.setProfession("Ginecologista");
+        doc.addRoles(Role.ADMIN);
+
+        doctorRepository.save(doc);
+
+        Pacient pac = new Pacient();
+        pac.setAddress(add);
+        pac.setBirthdate(Date.from(Instant.now()));
+        pac.setDoctor(doc);
+        pac.setName("Gisele");
+        pac.setPhone("3445-2264");
+        pac.setProfession("Arquiteta");
+
+        pacRepository.save(pac);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 

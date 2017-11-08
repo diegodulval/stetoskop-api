@@ -1,5 +1,6 @@
 package com.dulval.stetoskop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -18,5 +19,6 @@ public class Doctor extends User {
     private Integer account;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "doctor")
     private List<Pacient> pacients = new ArrayList<>();
 }
