@@ -5,10 +5,10 @@
  */
 package com.dulval.stetoskop.services;
 
-import com.dulval.stetoskop.domain.InterationMedicament;
 import com.dulval.stetoskop.domain.Medicament;
-import com.dulval.stetoskop.repositories.InterationMedicamentRepository;
-import com.dulval.stetoskop.repositories.MedicamentRepository;
+import com.dulval.stetoskop.domain.Pacient;
+import com.dulval.stetoskop.repositories.AddressRepository;
+import com.dulval.stetoskop.repositories.PacientRepository;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,36 +23,26 @@ import org.springframework.stereotype.Service;
  * @author Diego Dulval
  */
 @Service
-public class MedicamentService {
+public class PacientService {
 
     @Autowired
-    private MedicamentRepository repo;
+    private PacientRepository repo;
 
     @Autowired
-    private InterationMedicamentRepository iterationRepository;
+    private AddressRepository addRepo;
 
-    public Medicament create(Medicament obj) {
+    public Pacient create(Pacient obj) {
+
+        obj.getAddress().setId(null);
+        addRepo.save(obj.getAddress());
+
         obj.setId(null);
         obj = repo.save(obj);
-
-        for (InterationMedicament interation : obj.getInterations()) {
-
-            Medicament med = repo.findOne(interation.getMedicament());
-            if (med == null) {
-                throw new ObjectNotFoundException("Não é possivél associar o Medicamento com Id = " + interation.getMedicament() + " , objeto não encontrado!  ");
-            }
-
-            interation.setMedicamentInteration(obj.getId());
-            interation.setMedicament(med.getId());
-
-        }
-        iterationRepository.save(obj.getInterations());
-
         return obj;
     }
 
-    public Medicament readById(Integer id) {
-        Medicament obj = repo.findOne(id);
+    public Pacient readById(Integer id) {
+        Pacient obj = repo.findOne(id);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
                     + ", Tipo: " + Medicament.class.getSimpleName());
@@ -69,21 +59,21 @@ public class MedicamentService {
         }
     }
 
-    public Page<Medicament> read(String nameDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Pacient> read(String nameDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
     }
 
-    public Medicament update(Medicament obj) {
-        Medicament newObj = readById(obj.getId());
+    public Pacient update(Pacient obj) {
+        Pacient newObj = readById(obj.getId());
         updateData(newObj, obj);
         return repo.save(newObj);
     }
 
-    private void updateData(Medicament newObj, Medicament obj) {
+    private void updateData(Pacient newObj, Pacient obj) {
         newObj.setName(obj.getName());
-        newObj.setApresentations(obj.getApresentations());
-        newObj.setComercialNames(obj.getComercialNames());
-        newObj.setInterations(obj.getInterations());
+        newObj.setPhone(obj.getPhone());
+        newObj.setProfession(obj.getProfession());
+        newObj.setBirthdate(obj.getBirthdate());
     }
 }
