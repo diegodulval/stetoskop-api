@@ -16,6 +16,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.dulval.stetoskop.dto.CredentialsDTO;
+import com.google.gson.Gson;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -51,8 +54,23 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             FilterChain chain,
             Authentication auth) throws IOException, ServletException {
 
-        String username = ((UserSS) auth.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(username);
+        String email = ((UserSS) auth.getPrincipal()).getUsername();
+        Integer id = ((UserSS) auth.getPrincipal()).getId();
+
+        String token = jwtUtil.generateToken(email);
+
         res.addHeader("Authorization", "Bearer " + token);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("token", token);
+        data.put("email", email);
+        data.put("id", id);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+
+        res.getWriter().write(json);
+        res.getWriter().flush();
+        res.getWriter().close();
     }
 }
