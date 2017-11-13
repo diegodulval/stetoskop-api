@@ -66,8 +66,7 @@ public class MedicamentResource {
 
     @GetMapping
     public ResponseEntity read(
-            @RequestParam(value = "institute", defaultValue = "", required = false) String name,
-            @RequestParam(value = "institute", defaultValue = "0", required = false) Integer process,
+            @RequestParam(value = "name", defaultValue = "", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,

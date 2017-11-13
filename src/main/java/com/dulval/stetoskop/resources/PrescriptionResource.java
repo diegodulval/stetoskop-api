@@ -6,9 +6,13 @@
 package com.dulval.stetoskop.resources;
 
 import com.dulval.stetoskop.domain.Prescription;
+import com.dulval.stetoskop.dto.response.MedicamentResponse;
+import com.dulval.stetoskop.dto.response.PrescriptionResponse;
 import com.dulval.stetoskop.services.PrescriptionService;
 import java.net.URI;
+import java.util.Date;
 import javax.validation.Valid;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -63,11 +67,16 @@ public class PrescriptionResource {
 
     @GetMapping
     public ResponseEntity read(
+            @RequestParam(value = "data", defaultValue = "", required = false) Date date,
+            @RequestParam(value = "doctor", defaultValue = "0", required = false) Integer doctor,
+            @RequestParam(value = "pacient", defaultValue = "0", required = false) Integer pacient,
+            
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "date") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         Page<Prescription> list = service.read(null, page, linesPerPage, orderBy, direction);
-        return ResponseEntity.ok().body(list);
+        Page<PrescriptionResponse> listDto = list.map(PrescriptionResponse::new);
+        return ResponseEntity.ok().body(listDto);
     }
 }
