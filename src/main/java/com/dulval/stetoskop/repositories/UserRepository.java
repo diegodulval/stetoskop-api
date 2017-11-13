@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dulval.stetoskop.domain.User;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor {
 
     @Transactional(readOnly = true)
     User findByEmail(String email);
@@ -15,5 +16,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //    @Transactional(readOnly = true)
 //    @Query("SELECT DISTINCT obj FROM User obj WHERE obj.name LIKE %:name% AND obj.email LIKE %:email%")
 //    Page<User> findAll(String name, String email, Pageable pageRequest);
-
 }
