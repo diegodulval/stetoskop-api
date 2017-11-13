@@ -46,7 +46,7 @@ public abstract class User implements Serializable {
     private Set<Integer> roles = new HashSet<>();
 
     public User() {
-        addRoles(Role.CLIENTE);
+       
     }
 
     public User(Integer id, String name, String email, String password, Address address, String phone) {

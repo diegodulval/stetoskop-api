@@ -32,11 +32,16 @@ public class ItemPrescription implements Serializable {
     private ItemPrescriptionPK id = new ItemPrescriptionPK();
 
     private String description;
+    private String apresentation;
     private Integer quantity;
 
     @ElementCollection
     @CollectionTable(name = "USETYPE")
     private Set<String> useTypes = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "PRESCRIPTION_COMERCIAL_NAME")
+    private Set<String> comercialName = new HashSet<>();
 
     @ElementCollection
     @CollectionTable(name = "UNITIE")
