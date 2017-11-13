@@ -36,13 +36,13 @@ public class PrescriptionService {
         obj.setId(null);
         obj = repo.save(obj);
 
-        for (ItemPrescription item : obj.getMedicaments()) {
+        for (ItemPrescription item : obj.getPrecriptions()) {
             Prescription prescription = repo.findOne(item.getMedicament().getId());
             if (prescription == null) {
                 throw new ObjectNotFoundException("Não é possivél associar o Medicamento com Id = " + item.getMedicament().getId() + " , objeto não encontrado!  ");
             }
         }
-        itemRepository.save(obj.getMedicaments());
+        itemRepository.save(obj.getPrecriptions());
 
         return obj;
     }
@@ -79,9 +79,10 @@ public class PrescriptionService {
     private void updateData(Prescription newObj, Prescription obj) {
         newObj.setDate(obj.getDate());
         newObj.setDescription(obj.getDescription());
-
-        itemRepository.delete(newObj.getMedicaments());
-        newObj.setMedicaments(obj.getMedicaments());
-        itemRepository.save(newObj.getMedicaments());
+        newObj.setDescription(obj.getDescription());
+        
+        itemRepository.delete(newObj.getPrecriptions());
+        newObj.setPrecriptions(obj.getPrecriptions());
+        itemRepository.save(newObj.getPrecriptions());
     }
 }

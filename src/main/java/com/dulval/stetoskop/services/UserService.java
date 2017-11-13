@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.dulval.stetoskop.domain.Institution;
 import com.dulval.stetoskop.domain.Doctor;
-import com.dulval.stetoskop.dto.form.UserForm;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
-import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +24,9 @@ public class UserService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private AddressService addressService;
 
     @Autowired
     private BCryptPasswordEncoder pe;
@@ -47,6 +48,9 @@ public class UserService {
         } else if (obj instanceof Doctor) {
             Doctor med = (Doctor) obj;
         }
+
+        addressService.create(obj.getAddress());
+
         obj = repo.save(obj);
         emailService.sendOrderConfirmationEmail(obj);
         return obj;
