@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 /**
- * Author:  Deigo
+ * Author:  Diego Dulval
  * Created: 14/11/2017
  */
 
