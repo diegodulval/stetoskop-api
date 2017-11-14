@@ -72,7 +72,7 @@ public class MedicamentResource {
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         String nameDecoded = URL.decodeParam(name);
-        Page<Medicament> list = service.read(nameDecoded, page, linesPerPage, orderBy, direction);
+        Page<Medicament> list = service.readByCriteria(nameDecoded, page, linesPerPage, orderBy, direction);
         Page<MedicamentResponse> listDto = list.map(MedicamentResponse::new);
         return ResponseEntity.ok().body(listDto);
     }

@@ -38,7 +38,7 @@ public class UserResource {
         String nameDecoded = URL.decodeParam(name);
         String emailDecoded = URL.decodeParam(email);
         
-        Page<User> list = service.read(nameDecoded, emailDecoded, page, linesPerPage, orderBy, direction);
+        Page<User> list = service.readByCriteria(nameDecoded, emailDecoded, page, linesPerPage, orderBy, direction);
         Page<UserResponse> listDto = list.map(obj -> new UserResponse(obj));
         return ResponseEntity.ok().body(listDto);
     }

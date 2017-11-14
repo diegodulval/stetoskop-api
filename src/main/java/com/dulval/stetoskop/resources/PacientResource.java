@@ -71,7 +71,7 @@ public class PacientResource {
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         String nameDecoded = URL.decodeParam(name);
-        Page<Pacient> list = service.read(nameDecoded, page, linesPerPage, orderBy, direction);
+        Page<Pacient> list = service.readByCriteria(nameDecoded, doctor, page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(list);
     }
 }
