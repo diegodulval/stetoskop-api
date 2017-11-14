@@ -9,6 +9,7 @@ import com.dulval.stetoskop.domain.InterationMedicament;
 import com.dulval.stetoskop.domain.Medicament;
 import com.dulval.stetoskop.repositories.InterationMedicamentRepository;
 import com.dulval.stetoskop.repositories.MedicamentRepository;
+import com.dulval.stetoskop.repositories.specifications.MedicamentSpecification;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
+import static org.springframework.data.jpa.domain.Specifications.where;
 import org.springframework.stereotype.Service;
 
 /**
@@ -64,9 +67,31 @@ public class MedicamentService {
         }
     }
 
-    public Page<Medicament> read(String nameDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Medicament> readByCriteria(String nameDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return repo.findAll(pageRequest);
+
+        Specification where = applyCriteria(nameDecoded);
+
+        return repo.findAll(where, pageRequest);
+    }
+
+    public Specification applyCriteria(String name) {
+
+        Specification where = null;
+
+        if (name != null && !name.isEmpty()) {
+            where = addClause(where, MedicamentSpecification.byName(name));
+        }
+
+        return where;
+    }
+
+    private Specification addClause(Specification where, Specification newClause) {
+        if (where == null) {
+            return where(newClause);
+        } else {
+            return where(where).and(newClause);
+        }
     }
 
     public Medicament update(Medicament obj) {
@@ -84,4 +109,5 @@ public class MedicamentService {
         iterationRepository.save(newObj.getInterations());
 
     }
+
 }

@@ -6,17 +6,20 @@
 package com.dulval.stetoskop.services;
 
 import com.dulval.stetoskop.domain.ItemPrescription;
-import com.dulval.stetoskop.domain.Medicament;
 import com.dulval.stetoskop.domain.Prescription;
 import com.dulval.stetoskop.repositories.ItemPrescriptionRepository;
 import com.dulval.stetoskop.repositories.PrescriptionRepository;
+import com.dulval.stetoskop.repositories.specifications.PrescriptionSpecification;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
+import static org.springframework.data.jpa.domain.Specifications.where;
 import org.springframework.stereotype.Service;
 
 /**
@@ -65,9 +68,39 @@ public class PrescriptionService {
         }
     }
 
-    public Page<Prescription> read(String nameDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Prescription> readByCriteria(Date date, Integer doctor, Integer pacient, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return repo.findAll(pageRequest);
+
+        Specification where = applyCriteria(date, doctor, pacient);
+
+        return repo.findAll(where, pageRequest);
+    }
+
+    public Specification applyCriteria(Date date, Integer doctorId, Integer pacientId) {
+
+        Specification where = null;
+
+        if (date != null) {
+            where = addClause(where, PrescriptionSpecification.byDate(date));
+        }
+
+        if (pacientId != null && pacientId > 0L) {
+            where = addClause(where, PrescriptionSpecification.wherePacient(pacientId));
+        }
+
+        if (doctorId != null && doctorId > 0L) {
+            where = addClause(where, PrescriptionSpecification.whereDoctor(doctorId));
+        }
+
+        return where;
+    }
+
+    private Specification addClause(Specification where, Specification newClause) {
+        if (where == null) {
+            return where(newClause);
+        } else {
+            return where(where).and(newClause);
+        }
     }
 
     public Prescription update(Prescription obj) {
@@ -80,7 +113,7 @@ public class PrescriptionService {
         newObj.setDate(obj.getDate());
         newObj.setDescription(obj.getDescription());
         newObj.setDescription(obj.getDescription());
-        
+
         itemRepository.delete(newObj.getPrecriptions());
         newObj.setPrecriptions(obj.getPrecriptions());
         itemRepository.save(newObj.getPrecriptions());

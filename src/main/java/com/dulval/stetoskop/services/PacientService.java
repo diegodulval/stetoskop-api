@@ -9,6 +9,7 @@ import com.dulval.stetoskop.domain.Medicament;
 import com.dulval.stetoskop.domain.Pacient;
 import com.dulval.stetoskop.repositories.AddressRepository;
 import com.dulval.stetoskop.repositories.PacientRepository;
+import com.dulval.stetoskop.repositories.specifications.PacientSpecification;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
+import static org.springframework.data.jpa.domain.Specifications.where;
 import org.springframework.stereotype.Service;
 
 /**
@@ -59,9 +62,35 @@ public class PacientService {
         }
     }
 
-    public Page<Pacient> read(String nameDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Pacient> readByCriteria(String nameDecoded, Integer doctorId, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return repo.findAll(pageRequest);
+
+        Specification where = applyCriteria(nameDecoded, doctorId);
+
+        return repo.findAll(where, pageRequest);
+    }
+
+    public Specification applyCriteria(String name, Integer doctorId) {
+
+        Specification where = null;
+
+        if (name != null && !name.isEmpty()) {
+            where = addClause(where, PacientSpecification.byName(name));
+        }
+
+        if (doctorId != null && doctorId > 0L) {
+            where = addClause(where, PacientSpecification.whereDoctor(doctorId));
+        }
+
+        return where;
+    }
+
+    private Specification addClause(Specification where, Specification newClause) {
+        if (where == null) {
+            return where(newClause);
+        } else {
+            return where(where).and(newClause);
+        }
     }
 
     public Pacient update(Pacient obj) {

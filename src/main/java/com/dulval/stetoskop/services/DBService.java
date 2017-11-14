@@ -67,7 +67,9 @@ public class DBService {
     public void instantiateTestDatabase() throws ParseException {
         
         State est1 = new State(null, "Minas Gerais");
+        est1.setUf("MG");
         State est2 = new State(null, "São Paulo");
+        est2.setUf("SP");
         
         City c1 = new City(null, "Uberlândia", est1);
         City c2 = new City(null, "São Paulo", est2);
@@ -99,7 +101,18 @@ public class DBService {
         doc.setProfession("Ginecologista");
         doc.addRoles(Role.ADMIN);
         
-        doctorRepository.save(doc);
+        Doctor docCris = new Doctor();
+        docCris.setAccount(1);
+        docCris.setAddress(add);
+        docCris.setCrm("123456");
+        docCris.setEmail("cristian@gmail.com");
+        docCris.setName("Chrisin");
+        docCris.setPassword(pe.encode("123456"));
+        docCris.setPhone("3445-2264");
+        docCris.setProfession("Pediatra");
+        docCris.addRoles(Role.ADMIN);
+        
+        doctorRepository.save(Arrays.asList(doc, docCris));
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         
@@ -143,10 +156,30 @@ public class DBService {
         pac.setPhone("3445-2264");
         pac.setProfession("Arquiteta");
         
-        pacRepository.save(pac);
+        Pacient pac1 = new Pacient();
+        pac1.setAddress(add);
+        pac1.setBirthdate(Date.from(Instant.now()));
+        pac1.setDoctor(docCris);
+        pac1.setName("Antonio");
+        pac1.setEmail(("tonho@gmail.com"));
+        pac1.setPhone("3445-2264");
+        pac1.setProfession("Pedreiro");
+        
+        Pacient pac2 = new Pacient();
+        pac2.setAddress(add);
+        pac2.setBirthdate(Date.from(Instant.now()));
+        pac2.setDoctor(docCris);
+        pac2.setName("Maria");
+        pac2.setEmail(("maria@gmail.com"));
+        pac2.setPhone("3445-2864");
+        pac2.setProfession("Dona de casa");
+        
+        pacRepository.save(Arrays.asList(pac, pac1, pac2));
+        
+        SimpleDateFormat fromUser = new SimpleDateFormat("dd/MM/yyyy");
         
         Prescription pres = new Prescription();
-        pres.setDate(Date.from(Instant.now()));
+        pres.setDate(fromUser.parse("14/11/2017"));
         pres.setPacient(pac);
         pres.setDescription("Se presitirem os sintomas um medico deve ser consultado.");
         
