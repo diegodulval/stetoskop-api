@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class UseType implements Serializable {
+public class Unity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,13 +24,13 @@ public class UseType implements Serializable {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "useType")
+    @OneToMany(mappedBy = "unity")
     private List<ItemPrescription> itemPrescriptions = new ArrayList<>();
 
-    public UseType() {
+    public Unity() {
     }
 
-    public UseType(Integer id, String name) {
+    public Unity(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

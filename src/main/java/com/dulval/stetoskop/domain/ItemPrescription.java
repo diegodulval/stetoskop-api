@@ -7,7 +7,6 @@ package com.dulval.stetoskop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +14,8 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -35,9 +36,9 @@ public class ItemPrescription implements Serializable {
     private String apresentation;
     private Integer quantity;
 
-    @ElementCollection
-    @CollectionTable(name = "USETYPE")
-    private Set<String> useTypes = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "use_type_id")
+    private UseType useType;
 
     @ElementCollection
     @CollectionTable(name = "PRESCRIPTION_COMERCIAL_NAME")
@@ -45,7 +46,10 @@ public class ItemPrescription implements Serializable {
 
     @ElementCollection
     @CollectionTable(name = "UNITIE")
-    private Set<String> unities = new HashSet<>();
+    
+    @ManyToOne
+    @JoinColumn(name = "unity_id")
+    private Unity unity;
 
     @JsonIgnoreProperties(value = {"interations"})
     public Medicament getMedicament() {
