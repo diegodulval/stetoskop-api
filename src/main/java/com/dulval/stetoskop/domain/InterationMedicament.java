@@ -31,7 +31,7 @@ public class InterationMedicament implements Serializable {
     private String description;
 
     @JsonProperty("medicament")
-    @JsonIgnoreProperties(value = {"interations", "id"})
+    @JsonIgnoreProperties(value = {"interations"})
     public Medicament getMedicamentInteration() {
         return id.getMedicamentInteration();
     }

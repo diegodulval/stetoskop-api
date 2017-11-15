@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -42,10 +44,12 @@ public class Medicament implements Serializable {
     private Set<InterationMedicament> medicamentInteration = new HashSet<>();
 
     @ElementCollection
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @CollectionTable(name = "APRESENTATION")
     private Set<String> apresentations = new HashSet<>();
 
     @ElementCollection
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @CollectionTable(name = "COMERCIAL_NAME")
     private Set<String> comercialNames = new HashSet<>();
 
