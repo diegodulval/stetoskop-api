@@ -5,8 +5,8 @@
  */
 package com.dulval.stetoskop.services;
 
-import com.dulval.stetoskop.domain.Address;
-import com.dulval.stetoskop.repositories.AddressRepository;
+import com.dulval.stetoskop.domain.UseType;
+import com.dulval.stetoskop.repositories.UseTypeRepository;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +21,21 @@ import org.springframework.stereotype.Service;
  * @author Diego Dulval
  */
 @Service
-public class AddressService {
+public class UseTypeService {
 
     @Autowired
-    private AddressRepository repo;
+    private UseTypeRepository repo;
 
-    public Address create(Address obj) {
+    public UseType create(UseType obj) {
         obj.setId(null);
         return repo.save(obj);
     }
 
-    public Address readById(Integer id) {
-        Address obj = repo.findOne(id);
+    public UseType readById(Integer id) {
+        UseType obj = repo.findOne(id);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
-                    + ", Tipo: " + Address.class.getSimpleName());
+                    + ", Tipo: " + UseType.class.getSimpleName());
         }
         return obj;
     }
@@ -49,21 +49,18 @@ public class AddressService {
         }
     }
 
-    public Page<Address> read(String nameDecoded, String emailDecoded, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<UseType> read(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
     }
 
-    public Address update(Address obj) {
-        Address newObj = readById(obj.getId());
+    public UseType update(UseType obj) {
+        UseType newObj = readById(obj.getId());
         updateData(newObj, obj);
         return repo.save(newObj);
     }
 
-    private void updateData(Address newObj, Address obj) {
-        newObj.setCity(obj.getCity());
-        newObj.setNeighborhood(obj.getNeighborhood());
-        newObj.setNumber(obj.getNumber());
-        newObj.setStreet(obj.getStreet());
+    private void updateData(UseType newObj, UseType obj) {
+        newObj.setName(obj.getName());
     }
 }
