@@ -26,7 +26,6 @@ public class UserForm implements Serializable {
     @Length(min = 1, max = 80, message = "O tamanho deve ser entre 1 e 80 caracteres")
     private String email;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
     @Length(min = 6, max = 20, message = "O tamanho deve ser entre 6 e 20 caracteres")
     private String password;
 
