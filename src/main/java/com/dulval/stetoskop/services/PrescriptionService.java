@@ -6,8 +6,10 @@
 package com.dulval.stetoskop.services;
 
 import com.dulval.stetoskop.domain.ItemPrescription;
+import com.dulval.stetoskop.domain.Medicament;
 import com.dulval.stetoskop.domain.Prescription;
 import com.dulval.stetoskop.repositories.ItemPrescriptionRepository;
+import com.dulval.stetoskop.repositories.MedicamentRepository;
 import com.dulval.stetoskop.repositories.PrescriptionRepository;
 import com.dulval.stetoskop.repositories.specifications.PrescriptionSpecification;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
@@ -31,21 +33,26 @@ public class PrescriptionService {
 
     @Autowired
     private PrescriptionRepository repo;
+    
+    @Autowired
+    private MedicamentRepository medRepo;
 
     @Autowired
     private ItemPrescriptionRepository itemRepository;
 
     public Prescription create(Prescription obj) {
         obj.setId(null);
-        obj = repo.save(obj);
 
-        for (ItemPrescription item : obj.getPrecriptions()) {
-            Prescription prescription = repo.findOne(item.getMedicament().getId());
-            if (prescription == null) {
+        for (ItemPrescription item : obj.getPrescriptions()) {
+            Medicament med = medRepo.findOne(item.getMedicament().getId());
+            if (med == null) {
                 throw new ObjectNotFoundException("Não é possivél associar o Medicamento com Id = " + item.getMedicament().getId() + " , objeto não encontrado!  ");
+            } else {
+                item.setPrescription(obj);
+                obj = repo.save(obj);
+                itemRepository.save(item);
             }
         }
-        itemRepository.save(obj.getPrecriptions());
 
         return obj;
     }
@@ -114,8 +121,8 @@ public class PrescriptionService {
         newObj.setDescription(obj.getDescription());
         newObj.setDescription(obj.getDescription());
 
-        itemRepository.delete(newObj.getPrecriptions());
-        newObj.setPrecriptions(obj.getPrecriptions());
-        itemRepository.save(newObj.getPrecriptions());
+        itemRepository.delete(newObj.getPrescriptions());
+        newObj.setPrescriptions(obj.getPrescriptions());
+        itemRepository.save(newObj.getPrescriptions());
     }
 }

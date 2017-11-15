@@ -43,9 +43,6 @@ public class ItemPrescription implements Serializable {
     @ElementCollection
     @CollectionTable(name = "PRESCRIPTION_COMERCIAL_NAME")
     private Set<String> comercialName = new HashSet<>();
-
-    @ElementCollection
-    @CollectionTable(name = "UNITIE")
     
     @ManyToOne
     @JoinColumn(name = "unity_id")

@@ -40,8 +40,8 @@ public class Prescription implements Serializable {
     private Pacient pacient;
 
     //@JsonIgnore
-    @OneToMany(mappedBy = "id.medicament")
-    private Set<ItemPrescription> precriptions = new HashSet<>();
+    @OneToMany(mappedBy = "id.prescription")
+    private Set<ItemPrescription> prescriptions = new HashSet<>();
 
     @Override
     public int hashCode() {
