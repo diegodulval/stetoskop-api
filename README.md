@@ -1,6 +1,6 @@
 # Stetoskop's API
 
-Work in process
+System of software for management medical prescriptions.
 
 ### Prerequisites
 
@@ -23,8 +23,3 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 * **Diego Dulval** - *Initial work* - [DiegoDulval](https://github.com/diegodulval)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
