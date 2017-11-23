@@ -8,8 +8,8 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Stetoskop QR Code</name>
-    <description>Sistema de gestão de prescições medicas online</description>
+    <name>Stetoskop</name>
+    <description>System of software for management medical prescriptions</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
