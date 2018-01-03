@@ -33,7 +33,7 @@ public class PrescriptionService {
 
     @Autowired
     private PrescriptionRepository repo;
-    
+
     @Autowired
     private MedicamentRepository medRepo;
 
@@ -42,14 +42,13 @@ public class PrescriptionService {
 
     public Prescription create(Prescription obj) {
         obj.setId(null);
-
+        obj = repo.save(obj);
         for (ItemPrescription item : obj.getPrescriptions()) {
             Medicament med = medRepo.findOne(item.getMedicament().getId());
             if (med == null) {
                 throw new ObjectNotFoundException("Não é possivél associar o Medicamento com Id = " + item.getMedicament().getId() + " , objeto não encontrado!  ");
             } else {
                 item.setPrescription(obj);
-                obj = repo.save(obj);
                 itemRepository.save(item);
             }
         }
