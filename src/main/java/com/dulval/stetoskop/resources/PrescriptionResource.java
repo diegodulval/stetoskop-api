@@ -45,9 +45,9 @@ public class PrescriptionResource {
 
     @PostMapping
     public ResponseEntity insert(@Valid @RequestBody Prescription obj) {
-        Prescription med = service.create(obj);
+        Prescription presc = service.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(med.getId()).toUri();
+                .path("/{id}").buildAndExpand(presc.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 

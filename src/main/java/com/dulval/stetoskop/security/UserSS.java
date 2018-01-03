@@ -9,30 +9,30 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.dulval.stetoskop.domain.enums.Role;
+import lombok.Data;
 
+@Data
 public class UserSS implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	private String email;
-	private String senha;
+	private String password;
+        private Integer role;
+        
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserSS() {
 	}
 	
-	public UserSS(Integer id, String email, String senha, Set<Role> perfis) {
+	public UserSS(Integer id, String email, String password, Integer role) {
 		super();
 		this.id = id;
 		this.email = email;
-		this.senha = senha;
-		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescription())).collect(Collectors.toList());
+                this.role = role;
+		this.password = password;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
@@ -40,7 +40,7 @@ public class UserSS implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return senha;
+		return password;
 	}
 
 	@Override

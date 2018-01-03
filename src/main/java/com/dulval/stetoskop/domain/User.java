@@ -30,39 +30,30 @@ public abstract class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
+    protected Integer id;
+    protected String name;
     @Column(unique = true)
-    private String email;
+    protected String email;
     @JsonIgnore
-    private String password;
+    protected String password;
     @ManyToOne
     @JoinColumn(name = "address_id")
-    private Address address;
-    private String phone;
+    protected Address address;
+    protected String phone;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "ROLES")
-    private Set<Integer> roles = new HashSet<>();
+    protected Integer role;
 
     public User() {
        
     }
 
-    public User(Integer id, String name, String email, String password, Address address, String phone) {
+    public User(Integer id, String name, String email, String password, Address address, String phone, Integer role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
         this.phone = phone;
-    }
-
-    public Set<Role> getRoles() {
-        return roles.stream().map(x -> Role.toEnum(x)).collect(Collectors.toSet());
-    }
-
-    public void addRoles(Role perfil) {
-        roles.add(perfil.getCod());
+        this.role = role;
     }
 }

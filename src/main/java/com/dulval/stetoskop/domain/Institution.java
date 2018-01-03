@@ -11,12 +11,11 @@ public class Institution extends User {
     private static final long serialVersionUID = 1L;
 
     public Institution() {
-        addRoles(Role.ADMIN);
+        this.role = Role.ADMIN.getCod();
     }
 
     public Institution(Integer id, String name, String email, String password, Address address, String phone) {
-        super(id, name, email, password, address, phone);
-        addRoles(Role.ADMIN);
+        super(id, name, email, password, address, phone, Role.ADMIN.getCod());
     }
 
 }

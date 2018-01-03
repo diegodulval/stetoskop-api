@@ -56,6 +56,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String email = ((UserSS) auth.getPrincipal()).getUsername();
         Integer id = ((UserSS) auth.getPrincipal()).getId();
+        Integer role = ((UserSS) auth.getPrincipal()).getRole();
 
         String token = jwtUtil.generateToken(email);
 
@@ -64,6 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
         data.put("email", email);
+        data.put("role", role);
         data.put("id", id);
 
         Gson gson = new Gson();

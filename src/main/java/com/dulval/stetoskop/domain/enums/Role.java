@@ -3,7 +3,7 @@ package com.dulval.stetoskop.domain.enums;
 public enum Role {
 	
 	ADMIN(1, "ROLE_ADMIN"),
-	CLIENTE(2, "ROLE_CLIENTE");
+	DOCTOR(2, "ROLE_DOCTOR");
 	
 	private int cod;
 	private String description;

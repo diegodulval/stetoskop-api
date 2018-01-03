@@ -27,23 +27,15 @@ public class Doctor extends User {
     @JsonIgnoreProperties(value = "doctor")
     private List<Posology> posologys = new ArrayList<>();
 
-    public Doctor(String profession, String crm, Integer account) {
-        this.profession = profession;
-        this.crm = crm;
-        this.account = account;
-        addRoles(Role.CLIENTE);
-    }
-
     public Doctor(String profession, String crm, Integer account, Integer id, String name, String email, String password, Address address, String phone) {
-        super(id, name, email, password, address, phone);
+        super(id, name, email, password, address, phone, Role.DOCTOR.getCod());
         this.profession = profession;
         this.crm = crm;
         this.account = account;
-        addRoles(Role.CLIENTE);
     }
 
     public Doctor() {
-        addRoles(Role.CLIENTE);
+        this.role = Role.DOCTOR.getCod();
     }
 
 }

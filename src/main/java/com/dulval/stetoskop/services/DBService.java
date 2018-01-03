@@ -108,7 +108,6 @@ public class DBService {
         doc.setPassword(pe.encode("123456"));
         doc.setPhone("3445-2264");
         doc.setProfession("Ginecologista");
-        doc.addRoles(Role.ADMIN);
 
         Doctor docCris = new Doctor();
         docCris.setAccount(1);
@@ -119,7 +118,6 @@ public class DBService {
         docCris.setPassword(pe.encode("123456"));
         docCris.setPhone("3445-2264");
         docCris.setProfession("Pediatra");
-        docCris.addRoles(Role.ADMIN);
 
         doctorRepository.save(Arrays.asList(doc, docCris));
 
