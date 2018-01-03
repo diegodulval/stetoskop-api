@@ -5,11 +5,9 @@
  */
 package com.dulval.stetoskop.services;
 
-import com.dulval.stetoskop.domain.Medicament;
-import com.dulval.stetoskop.domain.Pacient;
-import com.dulval.stetoskop.repositories.AddressRepository;
-import com.dulval.stetoskop.repositories.PacientRepository;
-import com.dulval.stetoskop.repositories.specifications.PacientSpecification;
+import com.dulval.stetoskop.domain.Posology;
+import com.dulval.stetoskop.repositories.PosologyRepository;
+import com.dulval.stetoskop.repositories.specifications.PosologySpecification;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,29 +24,22 @@ import org.springframework.stereotype.Service;
  * @author Diego Dulval
  */
 @Service
-public class PacientService {
+public class PosologyService {
 
     @Autowired
-    private PacientRepository repo;
+    private PosologyRepository repo;
 
-    @Autowired
-    private AddressRepository addRepo;
-
-    public Pacient create(Pacient obj) {
-
-        obj.getAddress().setId(null);
-        addRepo.save(obj.getAddress());
-
+    public Posology create(Posology obj) {
         obj.setId(null);
         obj = repo.save(obj);
         return obj;
     }
 
-    public Pacient readById(Integer id) {
-        Pacient obj = repo.findOne(id);
+    public Posology readById(Integer id) {
+        Posology obj = repo.findOne(id);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
-                    + ", Tipo: " + Medicament.class.getSimpleName());
+                    + ", Tipo: " + Posology.class.getSimpleName());
         }
         return obj;
     }
@@ -62,24 +53,24 @@ public class PacientService {
         }
     }
 
-    public Page<Pacient> readByCriteria(String nameDecoded, Integer doctorId, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Posology> readByCriteria(String descDecoded, Integer doctorId, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
-        Specification where = applyCriteria(nameDecoded, doctorId);
+        Specification where = applyCriteria(descDecoded, doctorId);
 
         return repo.findAll(where, pageRequest);
     }
 
-    public Specification applyCriteria(String name, Integer doctorId) {
+    public Specification applyCriteria(String desc, Integer doctorId) {
 
         Specification where = null;
 
-        if (name != null && !name.isEmpty()) {
-            where = addClause(where, PacientSpecification.byName(name));
+        if (desc != null && !desc.isEmpty()) {
+            where = addClause(where, PosologySpecification.byDescription(desc));
         }
 
         if (doctorId != null && doctorId > 0L) {
-            where = addClause(where, PacientSpecification.whereDoctor(doctorId));
+            where = addClause(where, PosologySpecification.whereDoctor(doctorId));
         }
 
         return where;
@@ -93,16 +84,13 @@ public class PacientService {
         }
     }
 
-    public Pacient update(Pacient obj) {
-        Pacient newObj = readById(obj.getId());
+    public Posology update(Posology obj) {
+        Posology newObj = readById(obj.getId());
         updateData(newObj, obj);
         return repo.save(newObj);
     }
 
-    private void updateData(Pacient newObj, Pacient obj) {
-        newObj.setName(obj.getName());
-        newObj.setPhone(obj.getPhone());
-        newObj.setProfession(obj.getProfession());
-        newObj.setBirthdate(obj.getBirthdate());
+    private void updateData(Posology newObj, Posology obj) {
+        newObj.setDescription(obj.getDescription());
     }
 }
