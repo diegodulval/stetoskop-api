@@ -11,11 +11,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
-public final class PacientSpecification {
+public final class PosologySpecification {
 
-    public static Specification<Pacient> byName(String param) {
-        return (Root<Pacient> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> builder.like(builder.lower(root.<String>get("name")),
-                "%" + param.trim().toLowerCase() + "%");
+    public static Specification<Pacient> byDescription(String desc) {
+        return (Root<Pacient> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> builder.like(builder.lower(root.<String>get("description")),
+                "%" + desc.trim().toLowerCase() + "%");
     }
 
     public static Specification whereDoctor(Integer param) {
