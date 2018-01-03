@@ -55,6 +55,6 @@ public class Pacient implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
-    @JsonIgnoreProperties(value = "pacients")
+    @JsonIgnoreProperties(value = {"pacients", "posologys"})
     private Doctor doctor;
 }

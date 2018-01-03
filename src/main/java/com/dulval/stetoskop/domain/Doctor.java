@@ -23,6 +23,10 @@ public class Doctor extends User {
     @JsonIgnoreProperties(value = "doctor")
     private List<Pacient> pacients = new ArrayList<>();
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "doctor")
+    private List<Posology> posologys = new ArrayList<>();
+
     public Doctor(String profession, String crm, Integer account) {
         this.profession = profession;
         this.crm = crm;
