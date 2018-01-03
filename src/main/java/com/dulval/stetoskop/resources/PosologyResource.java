@@ -68,7 +68,7 @@ public class PosologyResource {
             @RequestParam(value = "doctor", defaultValue = "0", required = false) Integer doctor,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "orderBy", defaultValue = "doctor") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         String descDecode = URL.decodeParam(description);
         Page<Posology> list = service.readByCriteria(descDecode, doctor, page, linesPerPage, orderBy, direction);
