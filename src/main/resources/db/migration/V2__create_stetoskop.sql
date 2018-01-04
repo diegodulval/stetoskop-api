@@ -8,6 +8,323 @@
  * Created: 14/11/2017
  */
 
+
+/*  ALTER TABLE address 
+     DROP constraint FKpo044ng5x4gynb291cv24vtea;
+
+ ALTER TABLE apresentation 
+     DROP constraint FKto8jitc5qovctajma04mjm9fu;
+
+ ALTER TABLE city 
+     DROP constraint FK6p2u50v8fg2y0js6djc6xanit;
+
+ ALTER TABLE comercial_name 
+     DROP constraint FK720c9h47u6de5xl29ftg2tgfb;
+
+ ALTER TABLE doctor 
+     DROP constraint FK8uqrqat6ylj9dbtn7oieoo1qa;
+
+ ALTER TABLE institution 
+     DROP constraint FK835pr66o5aagbrmo8283f9gv0;
+
+ ALTER TABLE interation_medicament 
+     DROP constraint FK7mw776vpblr2xelxav9j66fji;
+
+ ALTER TABLE interation_medicament 
+     DROP constraint FKf17hayyun5xwsp7etv8qvp77h;
+
+ ALTER TABLE item_prescription 
+     DROP constraint FK2plepv9f5csw832o4mnnro2uh;
+
+ ALTER TABLE item_prescription 
+     DROP constraint FKg5jan1safk7sxqp6ra63i2r67;
+
+ ALTER TABLE item_prescription 
+     DROP constraint FKnoi80qn89o98jdgpwk0v596cd;
+
+ ALTER TABLE item_prescription 
+     DROP constraint FK9d78uxa520udnvb8v5ll7wong;
+
+ ALTER TABLE pacient 
+     DROP constraint FKopq1191t99m07f3fxdydvixjv;
+
+ ALTER TABLE pacient 
+     DROP constraint FKhguecopo00k40pn296n3pw1ow;
+
+ ALTER TABLE posology 
+     DROP constraint FKatpb0fpweq6md68l589iqaahu;
+
+ ALTER TABLE prescription 
+     DROP constraint FKdjc4wt6doltlymjpieb5pjp8j;
+
+ ALTER TABLE prescription_comercial_name 
+     DROP constraint FKh5jnpe65s5swt51dba8je366g;
+
+ ALTER TABLE sys_user 
+     DROP constraint FKqd9swavc7nr2jjhqk0i7lqsl5; 
+
+DROP table if exists address cascade;
+
+DROP table if exists apresentation cascade;
+
+DROP table if exists city cascade;
+
+DROP table if exists comercial_name cascade;
+
+DROP table if exists doctor cascade;
+
+DROP table if exists institution cascade;
+
+DROP table if exists interation_medicament cascade;
+
+DROP table if exists item_prescription cascade;
+
+DROP table if exists medicament cascade;
+
+DROP table if exists pacient cascade;
+
+DROP table if exists posology cascade;
+
+DROP table if exists prescription cascade;
+
+DROP table if exists prescription_comercial_name cascade;
+
+DROP table if exists state cascade;
+
+DROP table if exists sys_user cascade;
+
+DROP table if exists unity cascade;
+
+DROP table if exists use_type cascade;
+
+*/
+
+CREATE TABLE address (
+    id  serial not null,
+    cep varchar(255),
+    neighborhood varchar(255),
+    number varchar(255),
+    street varchar(255),
+    city_id int4,
+    primary key (id)
+);
+
+CREATE TABLE apresentation (
+    medicament_id int4 not null,
+    apresentations varchar(255)
+);
+
+CREATE TABLE city (
+    id  serial not null,
+    name varchar(255),
+    state_id int4,
+    primary key (id)
+);
+
+CREATE TABLE comercial_name (
+    medicament_id int4 not null,
+    comercial_names varchar(255)
+);
+
+CREATE TABLE doctor (
+    account int4,
+    cpf varchar(255),
+    crm varchar(255),
+    profession varchar(255),
+    id int4 not null,
+    primary key (id)
+);
+
+CREATE TABLE institution (
+    id int4 not null,
+    primary key (id)
+);
+
+CREATE TABLE interation_medicament (
+    description varchar(255),
+    medicament_interation_id int4 not null,
+    medicament_id int4 not null,
+    primary key (medicament_id, medicament_interation_id)
+);
+
+CREATE TABLE item_prescription (
+    apresentation varchar(255),
+    description varchar(255),
+    quantity int4,
+    medicament_id int4 not null,
+    prescription_id int4 not null,
+    unity_id int4,
+    use_type_id int4,
+    primary key (medicament_id, prescription_id)
+);
+
+CREATE TABLE medicament (
+    id  serial not null,
+    name varchar(255),
+    primary key (id)
+);
+
+CREATE TABLE pacient (
+    id  serial not null,
+    birthdate timestamp,
+    email varchar(255),
+    name varchar(255),
+    phone varchar(255),
+    profession varchar(255),
+    rg varchar(255),
+    address_id int4,
+    doctor_id int4,
+    primary key (id)
+);
+
+CREATE TABLE posology (
+    id  serial not null,
+    description varchar(255),
+    doctor_id int4,
+    primary key (id)
+);
+
+CREATE TABLE prescription (
+    id  serial not null,
+    date timestamp,
+    description varchar(255),
+    pacient_id int4,
+    primary key (id)
+);
+
+CREATE TABLE prescription_comercial_name (
+    item_prescription_medicament_id int4 not null,
+    item_prescription_prescription_id int4 not null,
+    comercial_name varchar(255)
+);
+
+CREATE TABLE state (
+    id  serial not null,
+    name varchar(255),
+    uf varchar(255),
+    primary key (id)
+);
+
+CREATE TABLE sys_user (
+    id  serial not null,
+    email varchar(255),
+    name varchar(255),
+    password varchar(255),
+    phone varchar(255),
+    role int4,
+    address_id int4,
+    primary key (id)
+);
+
+CREATE TABLE unity (
+    id  serial not null,
+    name varchar(255),
+    primary key (id)
+);
+
+CREATE TABLE use_type (
+    id  serial not null,
+    name varchar(255),
+    primary key (id)
+);
+
+ALTER TABLE pacient 
+    add constraint UK_r4tslbv0lk9lqi95jq6xrmkec unique (email);
+
+ALTER TABLE sys_user 
+    add constraint UK_ahtq5ew3v0kt1n7hf1sgp7p8l unique (email);
+
+ALTER TABLE address 
+    add constraint FKpo044ng5x4gynb291cv24vtea 
+    foreign key (city_id) 
+    references city;
+
+ALTER TABLE apresentation 
+    add constraint FKto8jitc5qovctajma04mjm9fu 
+    foreign key (medicament_id) 
+    references medicament;
+
+ALTER TABLE city 
+    add constraint FK6p2u50v8fg2y0js6djc6xanit 
+    foreign key (state_id) 
+    references state;
+
+ALTER TABLE comercial_name 
+    add constraint FK720c9h47u6de5xl29ftg2tgfb 
+    foreign key (medicament_id) 
+    references medicament;
+
+ALTER TABLE doctor 
+    add constraint FK8uqrqat6ylj9dbtn7oieoo1qa 
+    foreign key (id) 
+    references sys_user;
+
+ALTER TABLE institution 
+    add constraint FK835pr66o5aagbrmo8283f9gv0 
+    foreign key (id) 
+    references sys_user;
+
+ALTER TABLE interation_medicament 
+    add constraint FK7mw776vpblr2xelxav9j66fji 
+    foreign key (medicament_interation_id) 
+    references medicament;
+
+ALTER TABLE interation_medicament 
+    add constraint FKf17hayyun5xwsp7etv8qvp77h 
+    foreign key (medicament_id) 
+    references medicament;
+
+ALTER TABLE item_prescription 
+    add constraint FK2plepv9f5csw832o4mnnro2uh 
+    foreign key (medicament_id) 
+    references medicament;
+
+ALTER TABLE item_prescription 
+    add constraint FKg5jan1safk7sxqp6ra63i2r67 
+    foreign key (prescription_id) 
+    references prescription;
+
+ALTER TABLE item_prescription 
+    add constraint FKnoi80qn89o98jdgpwk0v596cd 
+    foreign key (unity_id) 
+    references unity;
+
+ALTER TABLE item_prescription 
+    add constraint FK9d78uxa520udnvb8v5ll7wong 
+    foreign key (use_type_id) 
+    references use_type;
+
+ALTER TABLE pacient 
+    add constraint FKopq1191t99m07f3fxdydvixjv 
+    foreign key (address_id) 
+    references address;
+
+ALTER TABLE pacient 
+    add constraint FKhguecopo00k40pn296n3pw1ow 
+    foreign key (doctor_id) 
+    references doctor;
+
+ALTER TABLE posology 
+    add constraint FKatpb0fpweq6md68l589iqaahu 
+    foreign key (doctor_id) 
+    references doctor;
+
+ALTER TABLE prescription 
+    add constraint FKdjc4wt6doltlymjpieb5pjp8j 
+    foreign key (pacient_id) 
+    references pacient;
+
+ALTER TABLE prescription_comercial_name 
+    add constraint FKh5jnpe65s5swt51dba8je366g 
+    foreign key (item_prescription_medicament_id, item_prescription_prescription_id) 
+    references item_prescription;
+
+ALTER TABLE sys_user 
+    add constraint FKqd9swavc7nr2jjhqk0i7lqsl5 
+    foreign key (address_id) 
+    references address;
+
+
 INSERT INTO state (id, name, uf) VALUES
 	(1, 'Acre', 'AC'),
 	(2, 'Alagoas', 'AL'),
