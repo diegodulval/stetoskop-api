@@ -22,6 +22,8 @@ public class DoctorForm extends UserForm implements Serializable {
     @Length(min = 1, max = 40, message = "O tamanho deve ser entre 1 e 40 caracteres")
     private String crm;
 
+    private String cpf;
+
     private Integer account;
 
     public Doctor build() {
@@ -35,7 +37,8 @@ public class DoctorForm extends UserForm implements Serializable {
                 this.getEmail(),
                 this.getPassword(),
                 this.getAddress(),
-                this.getPhone());
+                this.getPhone(),
+                this.getCpf());
     }
 
     public DoctorForm() {

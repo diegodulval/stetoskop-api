@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static springfox.documentation.schema.property.BeanPropertyDefinitions.name;
 
 @Service
 public class DoctorService {
@@ -58,6 +57,7 @@ public class DoctorService {
         newObj.setEmail(obj.getEmail());
         newObj.setProfession(obj.getProfession());
         newObj.setPhone(obj.getPhone());
+        newObj.setCpf(obj.getCpf());
     }
 
     public Specification applyCriteria(String name, String email) {

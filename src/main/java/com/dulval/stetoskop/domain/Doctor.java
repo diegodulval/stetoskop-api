@@ -18,6 +18,7 @@ public class Doctor extends User {
     private String profession;
     private String crm;
     private Integer account;
+    private String cpf;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "doctor")
@@ -27,11 +28,12 @@ public class Doctor extends User {
     @JsonIgnoreProperties(value = "doctor")
     private List<Posology> posologys = new ArrayList<>();
 
-    public Doctor(String profession, String crm, Integer account, Integer id, String name, String email, String password, Address address, String phone) {
+    public Doctor(String profession, String crm, Integer account, Integer id, String name, String email, String password, Address address, String phone, String cpf) {
         super(id, name, email, password, address, phone, Role.DOCTOR.getCod());
         this.profession = profession;
         this.crm = crm;
         this.account = account;
+        this.cpf = cpf;
     }
 
     public Doctor() {
