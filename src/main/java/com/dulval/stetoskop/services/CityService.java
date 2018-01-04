@@ -5,6 +5,7 @@
  */
 package com.dulval.stetoskop.services;
 
+import com.dulval.stetoskop.domain.Medicament;
 import com.dulval.stetoskop.domain.Pacient;
 import com.dulval.stetoskop.repositories.AddressRepository;
 import com.dulval.stetoskop.repositories.PacientRepository;
@@ -47,7 +48,7 @@ public class PacientService {
         Pacient obj = repo.findOne(id);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
-                    + ", Tipo: " + Pacient.class.getSimpleName());
+                    + ", Tipo: " + Medicament.class.getSimpleName());
         }
         return obj;
     }
