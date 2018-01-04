@@ -5,9 +5,8 @@
  */
 package com.dulval.stetoskop.resources;
 
-import com.dulval.stetoskop.domain.Pacient;
-import com.dulval.stetoskop.resources.utils.URL;
-import com.dulval.stetoskop.services.PacientService;
+import com.dulval.stetoskop.domain.City;
+import com.dulval.stetoskop.services.CityService;
 import java.net.URI;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +28,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author Diego Dulval
  */
 @RestController
-@RequestMapping(value = "/pacients")
-public class PacientResource {
+@RequestMapping(value = "/city")
+public class CityResource {
 
     @Autowired
-    private PacientService service;
+    private CityService service;
 
     @GetMapping("/{id}")
     public ResponseEntity find(@PathVariable Integer id) {
-        Pacient obj = service.readById(id);
+        City obj = service.readById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity insert(@Valid @RequestBody Pacient obj) {
+    public ResponseEntity insert(@Valid @RequestBody City obj) {
         obj = service.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -50,7 +49,7 @@ public class PacientResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@Valid @RequestBody Pacient obj, @PathVariable Integer id) {
+    public ResponseEntity update(@Valid @RequestBody City obj, @PathVariable Integer id) {
         obj.setId(id);
         service.update(obj);
         return ResponseEntity.noContent().build();
@@ -64,14 +63,13 @@ public class PacientResource {
 
     @GetMapping
     public ResponseEntity read(
-            @RequestParam(value = "name", defaultValue = "", required = false) String name,
-            @RequestParam(value = "doctor", defaultValue = "0", required = false) Integer doctor,
+            @RequestParam(value = "state", defaultValue = "0", required = true) Integer state,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        String nameDecoded = URL.decodeParam(name);
-        Page<Pacient> list = service.readByCriteria(nameDecoded, doctor, page, linesPerPage, orderBy, direction);
+
+        Page<City> list = service.readByCriteria(state, page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(list);
     }
 }

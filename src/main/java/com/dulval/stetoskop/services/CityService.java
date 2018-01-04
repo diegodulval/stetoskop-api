@@ -5,11 +5,9 @@
  */
 package com.dulval.stetoskop.services;
 
-import com.dulval.stetoskop.domain.Medicament;
-import com.dulval.stetoskop.domain.Pacient;
-import com.dulval.stetoskop.repositories.AddressRepository;
-import com.dulval.stetoskop.repositories.PacientRepository;
-import com.dulval.stetoskop.repositories.specifications.PacientSpecification;
+import com.dulval.stetoskop.domain.City;
+import com.dulval.stetoskop.repositories.CityRepository;
+import com.dulval.stetoskop.repositories.specifications.CitySpecification;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,29 +24,23 @@ import org.springframework.stereotype.Service;
  * @author Diego Dulval
  */
 @Service
-public class PacientService {
+public class CityService {
 
     @Autowired
-    private PacientRepository repo;
+    private CityRepository repo;
 
-    @Autowired
-    private AddressRepository addRepo;
-
-    public Pacient create(Pacient obj) {
-
-        obj.getAddress().setId(null);
-        addRepo.save(obj.getAddress());
+    public City create(City obj) {
 
         obj.setId(null);
         obj = repo.save(obj);
         return obj;
     }
 
-    public Pacient readById(Integer id) {
-        Pacient obj = repo.findOne(id);
+    public City readById(Integer id) {
+        City obj = repo.findOne(id);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
-                    + ", Tipo: " + Medicament.class.getSimpleName());
+                    + ", Tipo: " + City.class.getSimpleName());
         }
         return obj;
     }
@@ -62,24 +54,20 @@ public class PacientService {
         }
     }
 
-    public Page<Pacient> readByCriteria(String nameDecoded, Integer doctorId, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<City> readByCriteria(Integer stateId, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
-        Specification where = applyCriteria(nameDecoded, doctorId);
+        Specification where = applyCriteria(stateId);
 
         return repo.findAll(where, pageRequest);
     }
 
-    public Specification applyCriteria(String name, Integer doctorId) {
+    public Specification applyCriteria(Integer stateId) {
 
         Specification where = null;
 
-        if (name != null && !name.isEmpty()) {
-            where = addClause(where, PacientSpecification.byName(name));
-        }
-
-        if (doctorId != null && doctorId > 0L) {
-            where = addClause(where, PacientSpecification.whereDoctor(doctorId));
+        if (stateId != null && stateId > 0L) {
+            where = addClause(where, CitySpecification.whereState(stateId));
         }
 
         return where;
@@ -93,17 +81,13 @@ public class PacientService {
         }
     }
 
-    public Pacient update(Pacient obj) {
-        Pacient newObj = readById(obj.getId());
+    public City update(City obj) {
+        City newObj = readById(obj.getId());
         updateData(newObj, obj);
         return repo.save(newObj);
     }
 
-    private void updateData(Pacient newObj, Pacient obj) {
+    private void updateData(City newObj, City obj) {
         newObj.setName(obj.getName());
-        newObj.setRg(obj.getRg());
-        newObj.setPhone(obj.getPhone());
-        newObj.setProfession(obj.getProfession());
-        newObj.setBirthdate(obj.getBirthdate());
     }
 }
