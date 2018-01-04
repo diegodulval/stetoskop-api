@@ -10,6 +10,7 @@ import com.dulval.stetoskop.repositories.StateRepository;
 import com.dulval.stetoskop.services.exceptions.DataIntegrityException;
 import com.dulval.stetoskop.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,6 +50,7 @@ public class StateService {
         }
     }
 
+    @Cacheable("stateCache")
     public Page<State> read(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
