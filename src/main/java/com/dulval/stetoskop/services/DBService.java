@@ -74,31 +74,29 @@ public class DBService {
     private UnityRepository unityRepository;
 
     public void instantiateTestDatabase() throws ParseException {
+        /*
+        State est1 = new State(null, "Tangamandapio");
+        est1.setId(88);
+        est1.setUf("TM");
 
-        State est1 = new State(null, "Minas Gerais");
-        est1.setUf("MG");
-        State est2 = new State(null, "São Paulo");
-        est2.setUf("SP");
-
-        City c1 = new City(null, "Uberlândia", est1);
-        City c2 = new City(null, "São Paulo", est2);
-        City c3 = new City(null, "Campinas", est2);
+        City c1 = new City(null, "Aquidauana", est1);
 
         est1.getCitys().addAll(Arrays.asList(c1));
-        est2.getCitys().addAll(Arrays.asList(c2, c3));
 
-        estadoRepository.save(Arrays.asList(est1, est2));
-        cidadeRepository.save(Arrays.asList(c1, c2, c3));
-
-        Address add = new Address();
+        estadoRepository.save(Arrays.asList(est1));
+        cidadeRepository.save(Arrays.asList(c1));
+        */
+        Address add = null; //new Address();
+        /*       
         add.setCep("37564000");
-        add.setCity(c3);
+        add.setCity(c1);
         add.setNeighborhood("centro");
         add.setNumber("56");
         add.setStreet("Alameda");
 
         addRepository.save(add);
-
+        */
+        
         Doctor doc = new Doctor();
         doc.setAccount(1);
         doc.setAddress(add);
@@ -207,7 +205,7 @@ public class DBService {
         type.setName("Oral");
         useRepository.save(type);
         item.setUseType(type);
-        
+
         item.setPrescription(pres);
 
         presRepository.save(pres);
