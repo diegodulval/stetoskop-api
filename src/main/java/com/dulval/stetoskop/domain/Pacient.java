@@ -48,6 +48,7 @@ public class Pacient implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthdate;
     private String phone;
+    private String rg;
 
     @JsonIgnore
     @OneToMany(mappedBy = "pacient")

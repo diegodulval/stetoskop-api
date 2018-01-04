@@ -101,6 +101,7 @@ public class PacientService {
 
     private void updateData(Pacient newObj, Pacient obj) {
         newObj.setName(obj.getName());
+        newObj.setRg(obj.getRg());
         newObj.setPhone(obj.getPhone());
         newObj.setProfession(obj.getProfession());
         newObj.setBirthdate(obj.getBirthdate());
