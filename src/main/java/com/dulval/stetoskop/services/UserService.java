@@ -55,7 +55,7 @@ public class UserService {
         addressService.create(obj.getAddress());
 
         obj = repo.save(obj);
-        emailService.sendOrderConfirmationEmail(obj);
+        emailService.sendConfirmationEmail(obj);
         return obj;
     }
 
