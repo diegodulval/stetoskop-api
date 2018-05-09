@@ -40,7 +40,7 @@ public class Prescription implements Serializable {
     private Pacient pacient;
 
     //@JsonIgnore
-    @OneToMany(mappedBy = "id.prescription")
+    @OneToMany(mappedBy = "id.prescription", orphanRemoval=true)
     private Set<ItemPrescription> prescriptions = new HashSet<>();
 
     @Override
