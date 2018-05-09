@@ -1,20 +1,12 @@
 package com.dulval.stetoskop.domain;
 
-import com.dulval.stetoskop.domain.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.stream.Collectors;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -44,7 +36,7 @@ public abstract class User implements Serializable {
     protected Integer role;
 
     public User() {
-       
+
     }
 
     public User(Integer id, String name, String email, String password, Address address, String phone, Integer role) {

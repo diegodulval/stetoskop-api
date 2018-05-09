@@ -58,6 +58,9 @@ public class DoctorService {
         newObj.setProfession(obj.getProfession());
         newObj.setPhone(obj.getPhone());
         newObj.setCpf(obj.getCpf());
+
+        newObj.setAddress(obj.getAddress());
+
     }
 
     public Specification applyCriteria(String name, String email) {

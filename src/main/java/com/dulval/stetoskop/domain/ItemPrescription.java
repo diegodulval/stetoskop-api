@@ -43,7 +43,7 @@ public class ItemPrescription implements Serializable {
     @ElementCollection
     @CollectionTable(name = "PRESCRIPTION_COMERCIAL_NAME")
     private Set<String> comercialName = new HashSet<>();
-    
+
     @ManyToOne
     @JoinColumn(name = "unity_id")
     private Unity unity;

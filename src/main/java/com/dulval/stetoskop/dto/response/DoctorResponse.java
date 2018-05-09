@@ -12,7 +12,7 @@ import lombok.Data;
 
 /**
  *
- * @author diego-dulval
+ * @author Diego Dulval
  */
 @Data
 public class DoctorResponse extends UserResponse implements Serializable {

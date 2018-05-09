@@ -42,7 +42,7 @@ public class SwaggerConfig {
                         + "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum "
                         + "passages, and more recently with desktop publishing software like Aldus PageMaker including "
                         + "versions of Lorem Ipsum.")
-                .license("2DF / JP")
+                .license("DULVAL / J2P")
                 .version("1.0")
                 .build();
     }

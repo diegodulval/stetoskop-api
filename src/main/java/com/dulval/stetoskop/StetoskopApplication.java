@@ -9,11 +9,11 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class StetoskopApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(StetoskopApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(StetoskopApplication.class, args);
+    }
 
-	@Override
-	public void run(String... args) throws Exception {		
-	}	
+    @Override
+    public void run(String... args) throws Exception {
+    }
 }

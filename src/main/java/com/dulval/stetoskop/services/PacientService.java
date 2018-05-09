@@ -104,5 +104,7 @@ public class PacientService {
         newObj.setPhone(obj.getPhone());
         newObj.setProfession(obj.getProfession());
         newObj.setBirthdate(obj.getBirthdate());
+        newObj.setAddress(obj.getAddress());
+
     }
 }

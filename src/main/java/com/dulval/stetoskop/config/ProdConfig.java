@@ -11,8 +11,8 @@ import com.dulval.stetoskop.services.SmtpEmailService;
 @Profile("prod")
 public class ProdConfig {
 
-	@Bean
-	public EmailService emailService() {
-		return new SmtpEmailService();
-	}
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
+    }
 }
